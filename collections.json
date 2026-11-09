@@ -96,8 +96,8 @@
   },
   "093": {
    "image": "assets/sourced/scp/093.webp",
-   "w": 1100,
-   "h": 731,
+   "w": 780,
+   "h": 1100,
    "fit": "cover",
    "pos": "50% 50%",
    "credit": "scp-093"
@@ -232,18 +232,18 @@
   },
   "999": {
    "image": "assets/sourced/scp/999.webp",
-   "w": 1100,
+   "w": 928,
    "h": 1100,
    "fit": "cover",
-   "pos": "50% 50%",
+   "pos": "50% 45%",
    "credit": "scp-999"
   },
   "1048": {
    "image": "assets/sourced/scp/1048.webp",
-   "w": 1100,
-   "h": 694,
+   "w": 726,
+   "h": 1100,
    "fit": "cover",
-   "pos": "50% 50%",
+   "pos": "50% 45%",
    "credit": "scp-1048"
   },
   "1471": {
@@ -264,10 +264,10 @@
   },
   "2317": {
    "image": "assets/sourced/scp/2317.webp",
-   "w": 1100,
-   "h": 707,
+   "w": 777,
+   "h": 1100,
    "fit": "cover",
-   "pos": "50% 50%",
+   "pos": "50% 35%",
    "credit": "scp-2317"
   },
   "2521": {
@@ -280,18 +280,18 @@
   },
   "3000": {
    "image": "assets/sourced/scp/3000.webp",
-   "w": 1050,
-   "h": 761,
+   "w": 800,
+   "h": 232,
    "fit": "cover",
-   "pos": "18% 40%",
+   "pos": "52% 50%",
    "credit": "scp-3000"
   },
   "3008": {
    "image": "assets/sourced/scp/3008.webp",
-   "w": 1100,
-   "h": 831,
+   "w": 774,
+   "h": 1032,
    "fit": "cover",
-   "pos": "50% 50%",
+   "pos": "50% 40%",
    "credit": "scp-3008"
   }
  },
@@ -16053,14 +16053,14 @@
    "subject": "SCP-053"
   },
   "scp-055": {
-   "title": "SCP-055 illustration",
+   "title": "SCP-055 card (license box \"SCP-055\")",
    "author": "DrKens",
    "page": "https://scp-wiki.wikidot.com/kens-artistic-side",
    "url": "https://scp-wiki.wikidot.com/local--files/kens-artistic-side/cjU6b.webp",
    "license": "CC BY-SA 3.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-   "basis": "page-license",
-   "note": "Artist page \"Kens' Artistic Side\" by DrKens; page licensed CC BY-SA, no per-file entry found.",
+   "basis": "license-box",
+   "note": "The page license box lists \"SCP-055\" by DrKens, CC BY-SA 3.0. The entry is keyed by artwork title, not file name; cjU6b.webp is the image inside the page's SCP-055 block.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "subject": "SCP-055"
   },
@@ -16113,14 +16113,14 @@
    "subject": "SCP-087"
   },
   "scp-093": {
-   "title": "SCP-093 (Art Contest, Series 1)",
-   "author": "JC",
-   "page": "https://scp-wiki.wikidot.com/art-contest-hub-series-1",
-   "url": "https://i.imgur.com/fgv7B4l.png",
+   "title": "SCP-093 Red Sea Object (scp_093_by_sunnyparallax)",
+   "author": "SunnyClockwork (SunnyParallax)",
+   "page": "https://scp-wiki.wikidot.com/sunny-art-series-1",
+   "url": "https://scp-wiki.wikidot.com/local--files/sunny-art-series-1/scp_093_by_sunnyparallax-d7ibsr5.webp",
    "license": "CC BY-SA 3.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-   "basis": "page-license",
-   "note": "Art contest hub entry; the hub credits the artist and links this fullview. No per-file license-box entry.",
+   "basis": "artist-page",
+   "note": "Uploaded to the artist's own gallery page \"SunnyClockwork's Artwork - Series I\"; page CC BY-SA 3.0. No per-file license-box entry on that page.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "subject": "SCP-093"
   },
@@ -16209,14 +16209,14 @@
    "subject": "SCP-354"
   },
   "scp-426": {
-   "title": "SCP-426 illustration (KuruG)",
+   "title": "SCP-426 card (license box \"SCP-426\")",
    "author": "DrKens",
    "page": "https://scp-wiki.wikidot.com/kens-artistic-side",
    "url": "https://scp-wiki.wikidot.com/local--files/kens-artistic-side/KuruG.webp",
    "license": "CC BY-SA 3.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-   "basis": "page-license",
-   "note": "Artist page by DrKens; page licensed CC BY-SA, no per-file entry found.",
+   "basis": "license-box",
+   "note": "The page license box lists \"SCP-426\" by DrKens, CC BY-SA 3.0. The entry is keyed by artwork title; KuruG.webp is the image inside the page's SCP-426 block.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "subject": "SCP-426"
   },
@@ -16317,26 +16317,26 @@
    "subject": "SCP-966"
   },
   "scp-999": {
-   "title": "SCP-999 (Art Contest, Series 1)",
-   "author": "drakull232",
-   "page": "https://scp-wiki.wikidot.com/art-contest-hub-series-1",
-   "url": "https://i.imgur.com/h0vFlax.png",
+   "title": "Doodles of SCP-999 (999 doodle.jpg)",
+   "author": "Animaniacal",
+   "page": "https://scp-wiki.wikidot.com/art:doodles-of-scp-999",
+   "url": "https://scp-wiki.wdfiles.com/local--files/art:doodles-of-scp-999/999%20doodle.jpg",
    "license": "CC BY-SA 3.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-   "basis": "page-license",
-   "note": "Art contest hub entry; fullview linked from the hub. No per-file license-box entry.",
+   "basis": "license-box",
+   "note": "",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "subject": "SCP-999"
   },
   "scp-1048": {
-   "title": "SCP-1048 (Art Contest, Series 2)",
-   "author": "DaeriusD",
-   "page": "https://scp-wiki.wikidot.com/art-contest-hub-series-2",
-   "url": "https://i.imgur.com/sRneH1D.png",
+   "title": "SCP-1048 \"Builder Bear\" postcard",
+   "author": "Uton 2008",
+   "page": "https://scp-wiki.wikidot.com/uton-game-postcard-artworks",
+   "url": "https://scp-jp-storage.wdfiles.com/local--files/file:10359876-18-2kfh/IMG_6143.jpeg",
    "license": "CC BY-SA 3.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-   "basis": "page-license",
-   "note": "Art contest hub entry; fullview linked from the hub. No per-file license-box entry.",
+   "basis": "license-box",
+   "note": "Hand-drawn postcard fan art. The page lists each file with author Uton 2008 and CC BY-SA 3.0; the drawn label identifies the SCP.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "subject": "SCP-1048"
   },
@@ -16359,56 +16359,56 @@
    "url": "https://scp-wiki.wikidot.com/local--files/art:dr-avenlee-s-artchives/SCP-2006",
    "license": "CC BY-SA 3.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-   "basis": "page-license",
-   "note": "The SCP-2006 article image is copyrighted and used with permission, so it was not reused. This is fan art from a CC BY-SA artist page.",
+   "basis": "artist-page",
+   "note": "The page citation box reads \"Dr. Avenlee's Artchives\" by Dr Avenlee, CC BY-SA 3.0. No per-file license-box entry. The SCP-2006 article image is copyrighted and used with permission, so it was not reused.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "subject": "SCP-2006"
   },
   "scp-2317": {
-   "title": "SCP-2317 (Art Contest, Series 3)",
-   "author": "Kenoma",
-   "page": "https://scp-wiki.wikidot.com/art-contest-hub-series-3",
-   "url": "https://i.imgur.com/QIjBxpi.png",
+   "title": "SCP-2317 (scp_2317_by_sunnyparallax)",
+   "author": "SunnyClockwork (SunnyParallax)",
+   "page": "https://scp-wiki.wikidot.com/sunny-art-series-3",
+   "url": "https://scp-wiki.wikidot.com/local--files/sunny-art-series-3/scp_2317_by_sunnyparallax-d7uyvcc.webp",
    "license": "CC BY-SA 3.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-   "basis": "page-license",
-   "note": "Art contest hub entry; fullview linked from the hub. No per-file license-box entry.",
+   "basis": "artist-page",
+   "note": "Uploaded to the artist's own gallery page \"SunnyClockwork's Artwork - Series III\"; page CC BY-SA 3.0. No per-file license-box entry on that page.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "subject": "SCP-2317"
   },
   "scp-2521": {
    "title": "SCP-2521 (Art Contest, Series 3)",
-   "author": "Phillip Schaffield",
+   "author": "Phillip Schaffield (as credited by the contest hub)",
    "page": "https://scp-wiki.wikidot.com/art-contest-hub-series-3",
    "url": "https://i.imgur.com/DN3x2T1.png",
    "license": "CC BY-SA 3.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
    "basis": "page-license",
-   "note": "The SCP-2521 article images are copyrighted and used with permission, so they were not reused. Fullview linked from the art contest hub.",
+   "note": "PENDING: no per-file author/license statement found. The contest hub credits the artist and links this Imgur fullview; the hub page is CC BY-SA 3.0. Kept because the article's own images are pictograms (licensed LurkD, CC BY-SA 3.0) rather than a depiction.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "subject": "SCP-2521"
   },
   "scp-3000": {
-   "title": "SCP-3000 watercolour",
-   "author": "bloodandheart (artist named in the file name)",
-   "page": "https://scp-wiki.wikidot.com/art:anomalies-in-water-colour",
-   "url": "https://scp-wiki.wikidot.com/local--files/art:anomalies-in-water-colour/scp_3000_in_water_colour_by_bloodandheart_dfqm73q-pre.webp",
-   "license": "CC BY-SA 3.0",
+   "title": "gaslight.png (SCP-3000 article image)",
+   "author": "djkaktus; derivative of photos by Jens Petersen (CC BY-SA 3.0) and Bernard DUPONT (CC BY-SA 2.0)",
+   "page": "https://scp-wiki.wikidot.com/scp-3000",
+   "url": "https://scp-wiki.wdfiles.com/local--files/scp-3000/gaslight.png",
+   "license": "CC BY-SA 3.0 (components CC BY-SA 3.0 / 2.0)",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-   "basis": "page-license",
-   "note": "From the artist page \"Anomalies in water colour\". The page footer states CC BY-SA 3.0; no license box or per-file entry was found.",
+   "basis": "license-box",
+   "note": "Article license box: gaslight.png by djkaktus, derived from Gymnothorax fimbriatus.JPG (Jens Petersen) and Long-nosed Tree Snake (Bernard DUPONT). Replaces the watercolour, which had no per-file entry.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "subject": "SCP-3000"
   },
   "scp-3008": {
-   "title": "SCP-3008-2 (Art Contest, Series 4)",
-   "author": "HiuMentah",
-   "page": "https://scp-wiki.wikidot.com/art-contest-hub-series-4",
-   "url": "https://i.imgur.com/oPVD9NB.png",
+   "title": "SCP-3008 (scp_3008_by_tfsyndicate)",
+   "author": "TFSyndicate",
+   "page": "https://www.deviantart.com/tfsyndicate/art/SCP-3008-893191081",
+   "url": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ea864a9e-f55b-4abb-943d-6c58fd5ff200/ders6nd-5a48b42b-3a09-42ab-9410-5b5784cc13d1.jpg",
    "license": "CC BY-SA 3.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-   "basis": "page-license",
-   "note": "Art contest hub entry; fullview linked from the hub. No per-file license-box entry.",
+   "basis": "source-license",
+   "note": "The DeviantArt page marks this work CC BY-SA 3.0. Photo of a store interior with a drawn SCP-3008-2 staff figure; the IKEA branding belongs to its owner. Downloaded file is the 774x1032 preview DeviantArt serves publicly.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "subject": "SCP-3008"
   },
@@ -16687,13 +16687,13 @@
   },
   "goi-global-occult-coalition": {
    "title": "Global Occult Coalition logo v4.webp",
-   "author": "Aelanna (GOC hub license box); the Commons copy lists DrClef",
+   "author": "Aelanna (per the GOC hub license box, the source this Commons file cites); Commons file page lists DrClef",
    "page": "https://commons.wikimedia.org/wiki/File:Global_Occult_Coalition_logo_v4.webp",
    "url": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Global_Occult_Coalition_logo_v4.webp",
    "license": "CC BY-SA 3.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
    "basis": "commons",
-   "note": "The GOC hub license box credits GOC-Logo-v4.png to Aelanna (CC BY-SA 3.0); the Commons copy lists DrClef. Attribution conflict recorded; both named.",
+   "note": "Downloaded file: the Wikimedia Commons copy (400x400 WebP). Its Commons source field is the GOC hub page, whose license box credits GOC-Logo-v4.png to Aelanna, CC BY-SA 3.0; the Commons author field says DrClef. Both licenses agree (CC BY-SA 3.0). Aelanna is credited first because that is the attribution at the cited source; DrClef is kept as the Commons record.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "listedSource": "https://scp-wiki.wikidot.com/goc-hub-page",
    "subject": "Global Occult Coalition (GOC)"
@@ -16979,7 +16979,7 @@
    "license": "CC BY-SA 3.0 (page license)",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
    "basis": "page-license",
-   "note": "Directory logo with no license-box entry. Credited to the hosting page; author still to be confirmed.",
+   "note": "PENDING: directory logo with no license-box entry on the directory or the group hub. Credited to the hosting page only; author not confirmed.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "subject": "Society of the Atheist Partisans of Progress for the Halt of the Irrational and Religious Enemy (SAPPHIRE)"
   },
@@ -17043,7 +17043,7 @@
    "license": "CC BY-SA 3.0 (page license)",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
    "basis": "page-license",
-   "note": "Directory logo with no license-box entry. Credited to the hosting page; author still to be confirmed.",
+   "note": "PENDING: directory logo with no license-box entry on the directory or the group hub. Credited to the hosting page only; author not confirmed.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "subject": "Vikander-Kneed Technical Media (VKTM)"
   },
@@ -17068,7 +17068,7 @@
    "license": "CC BY-SA 3.0 (page license)",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
    "basis": "page-license",
-   "note": "Directory logo with no license-box entry. Credited to the hosting page; author still to be confirmed.",
+   "note": "PENDING: directory logo with no license-box entry on the directory or the group hub. Credited to the hosting page only; author not confirmed.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "subject": "Wilson's Wildlife Solutions"
   },
@@ -17406,14 +17406,15 @@
   },
   "mtf-delta-14": {
    "title": "Delta14.png",
-   "author": "Not listed in the directory license box",
-   "page": "https://scp-wiki.wikidot.com/task-forces",
+   "author": "EstrellaYoshte",
+   "page": "https://scp-wiki.wikidot.com/fragment:task-forces-complete-list-licensebox",
    "url": "https://scp-wiki.wdfiles.com/local--files/task-forces/Delta14.png",
-   "license": "CC BY-SA 3.0 (page license)",
+   "license": "CC BY-SA 3.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-   "basis": "page-license",
-   "note": "Insignia shown on the directory without a license-box entry; author still to be confirmed.",
+   "basis": "license-box",
+   "note": "Matched by unit name: the Comprehensive List license box lists MTF Delta-14 (\"Winter Wonderland\") by EstrellaYoshte, CC BY-SA 3.0, and its supplement captions the logo \"Logo by EstrellaYoshte\". The supplement shows delta-14.png from the artist's page; this is the directory copy (Delta14.png). The two files were not compared byte-for-byte.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
+   "listedSource": "http://scp-wiki.wikidot.com/desk-of-junior-designer-s-yvonne",
    "subject": "MTF Delta-14 \"Winter Wonderland\""
   },
   "mtf-delta-45": {
@@ -17939,14 +17940,15 @@
   },
   "mtf-pi-1": {
    "title": "Pi1.png",
-   "author": "Not listed in the directory license box",
-   "page": "https://scp-wiki.wikidot.com/task-forces",
+   "author": "SunnyClockwork",
+   "page": "https://scp-wiki.wikidot.com/fragment:task-forces-complete-list-licensebox",
    "url": "https://scp-wiki.wdfiles.com/local--files/task-forces/Pi1.png",
-   "license": "CC BY-SA 3.0 (page license)",
+   "license": "CC BY-SA 3.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-   "basis": "page-license",
-   "note": "Insignia shown on the directory without a license-box entry; author still to be confirmed.",
+   "basis": "license-box",
+   "note": "Comprehensive List license box: MTF Pi-1 (\"City Slickers\") by SunnyClockwork, CC BY-SA 3.0. Its supplement shows this same file (task-forces/Pi1.png) captioned \"Logo by SunnyClockwork\".",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
+   "listedSource": "http://scp-wiki.wikidot.com/sunny-art-tales",
    "subject": "MTF Pi-1 \"City Slickers\""
   },
   "mtf-pi-43": {
@@ -18559,7 +18561,7 @@
    "license": "CC BY-SA 3.0 (page license)",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
    "basis": "page-license",
-   "note": "Insignia shown on the directory without a license-box entry; author still to be confirmed.",
+   "note": "PENDING: insignia shown on the directory with no entry in the directory license box or the Comprehensive List license box; author not confirmed.",
    "modified": "Resized and converted to WebP for this archive; otherwise unmodified.",
    "subject": "MTF Nu-3 \"Limnophobia\""
   },
@@ -18698,14 +18700,6 @@
    "wilsons-wildlife"
   ],
   "taskForces": [
-   {
-    "id": "delta-14",
-    "gap": "insignia credit not in license box"
-   },
-   {
-    "id": "pi-1",
-    "gap": "insignia credit not in license box"
-   },
    {
     "id": "lambda-9",
     "gap": "no insignia on directory page; shared Foundation emblem with text overlay"

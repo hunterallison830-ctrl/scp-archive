@@ -46,8 +46,12 @@ node --check archive-core.js && node --check app.js
 node --test tests/core.test.js
 NODE_PATH=/path/to/node_modules/with/jsdom node --test tests/dom_smoke.test.js
 python3 tests/static_check.py
+python3 tools/build_standalone.py            # offline single-file preview -> ../scp-archive-offline/
+NODE_PATH=/path/to/node_modules/with/jsdom node --test tests/standalone_smoke.test.js
 ```
+
+`tools/build_standalone.py` writes a review copy that opens from `file://` with no server: data, images and films are embedded as data URLs and only `fetch` for the two JSON files is shimmed. It does not change the site files.
 
 ## Copyright and attribution
 
-This is **unofficial fan work**. It is not the SCP Wiki or affiliated with it. SCP concepts, group briefs and task-force mission statements come from the [SCP Wiki](https://scp-wiki.wikidot.com/) community under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), and quoted text is credited in each dossier. Every sourced image is credited in `credits.html` with author, source page, image URL, license and the basis for that license. Images whose license rests only on the hosting page, with no per-file entry, are flagged. The SCP-173 card does not use the Izumi Kato sculpture photograph. The archive's own writing, generated art, films, sound synthesis and code are shared under CC BY-SA 3.0.
+This is **unofficial fan work**. It is not the SCP Wiki or affiliated with it. SCP concepts, group briefs and task-force mission statements come from the [SCP Wiki](https://scp-wiki.wikidot.com/) community under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), and quoted text is credited in each dossier. Every sourced image is credited in `credits.html` with author, source page, image URL, license and the basis for that license. Each credit states its basis: page license box, Wikimedia Commons, a license on the off-wiki source page, the artist's own wiki page, or **pending** when no per-file author/license statement was found. Pending images are not treated as cleared. The SCP-173 card does not use the Izumi Kato sculpture photograph. The archive's own writing, generated art, films, sound synthesis and code are shared under CC BY-SA 3.0.

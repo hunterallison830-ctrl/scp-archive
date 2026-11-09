@@ -30,4 +30,5 @@ Design references (inspiration only, not shown on the site) are listed in `credi
 ### Known limits
 
 - Task-force "role" groupings are editorial keyword groupings, not official.
-- Sixteen images rely only on the hosting page's license, with no per-file entry. Eight task forces have insignia gaps or uncredited insignia. Three group logos have no license-box credit. All are listed in `collections.json.gaps` and flagged in `credits.html`.
+- Five images are **pending**: no per-file author or license statement was found (SCP-2521's contest art, three group logos, and the Nu-3 insignia). Three more come from the artist's own wiki gallery page with no per-file entry (SCP-093, SCP-2317, SCP-2006). Five task forces have no insignia and use the shared emblem. All are listed in `collections.json.gaps` and labeled in `credits.html`.
+- The offline single-file preview skips URL updates if the browser refuses history changes on `file://`, so Back may not step between dossiers there. The served site is unaffected.

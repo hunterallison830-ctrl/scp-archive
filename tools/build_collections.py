@@ -199,7 +199,10 @@ def build_groups(credits, meta):
             if u[1] == 'commons':
                 credits[cid] = commons_credit(meta, u[2], u[3])
                 if a == 'global-occult-coalition':
-                    credits[cid]['author'] = 'Aelanna (GOC hub license box); the Commons copy lists DrClef'
+                    credits[cid]['author'] = 'Aelanna (per the GOC hub license box, the source this Commons file cites); Commons file page lists DrClef'
+                    credits[cid]['note'] = ('Downloaded file: the Wikimedia Commons copy (400x400 WebP). Its Commons source field is the GOC hub page, whose license box '
+                                            'credits GOC-Logo-v4.png to Aelanna, CC BY-SA 3.0; the Commons author field says DrClef. Both licenses agree (CC BY-SA 3.0). '
+                                            'Aelanna is credited first because that is the attribution at the cited source; DrClef is kept as the Commons record.')
             elif u[1] == 'hub':
                 credits[cid] = wiki_credit(u[2], u[4], u[3], title=u[2]['Filename'], note=u[5])
             else:
@@ -212,7 +215,7 @@ def build_groups(credits, meta):
             else:
                 credits[cid] = dict(title=o['image'].rsplit('/', 1)[-1], author='Not listed in the directory or hub license box', page=GOI_DIR,
                                     url=o['image'], license='CC BY-SA 3.0 (page license)', licenseUrl=LIC['CC BY-SA 3.0'], basis='page-license',
-                                    note='Directory logo with no license-box entry. Credited to the hosting page; author still to be confirmed.', modified=MODIFIED)
+                                    note='PENDING: directory logo with no license-box entry on the directory or the group hub. Credited to the hosting page only; author not confirmed.', modified=MODIFIED)
                 gaps.append(a)
         w, h = to_webp(src, ROOT / rel, 720)
         credits[cid]['subject'] = o['name']
@@ -264,6 +267,18 @@ def clean_text(t):
     return re.sub(r'\s{2,}', ' ', t).strip()
 
 
+MTF_COMPLETE_LICBOX = 'https://scp-wiki.wikidot.com/fragment:task-forces-complete-list-licensebox'
+# Insignia missing from the directory license box but listed in the license box of
+# "A Comprehensive List of Mobile Task Forces" (fragment above) and captioned "Logo by ..."
+# on its image supplement (fragment:task-forces-complete-list-supplement).
+COMPLETE_LIST_CREDITS = {
+    'Delta-14': ('EstrellaYoshte', 'http://scp-wiki.wikidot.com/desk-of-junior-designer-s-yvonne',
+                 'Matched by unit name: the Comprehensive List license box lists MTF Delta-14 ("Winter Wonderland") by EstrellaYoshte, CC BY-SA 3.0, and its supplement captions the logo "Logo by EstrellaYoshte". The supplement shows delta-14.png from the artist\'s page; this is the directory copy (Delta14.png). The two files were not compared byte-for-byte.'),
+    'Pi-1': ('SunnyClockwork', 'http://scp-wiki.wikidot.com/sunny-art-tales',
+             'Comprehensive List license box: MTF Pi-1 ("City Slickers") by SunnyClockwork, CC BY-SA 3.0. Its supplement shows this same file (task-forces/Pi1.png) captioned "Logo by SunnyClockwork".'),
+}
+
+
 def build_mtf(credits, meta):
     raw = json.loads((RES / 'mtf_parsed.json').read_text())
     lic = json.loads((RES / 'mtf_licbox.json').read_text())
@@ -306,10 +321,15 @@ def build_mtf(credits, meta):
                 e = next((x for x in lic if d == 'Phi-Eolh' and x['Filename'] == 'PhiEloh.png'), None)
                 if e:
                     cr = wiki_credit(e, MTF_DIR, o['image'], title='PhiEloh.png', note='License-box entry spelled "Phi-Eloh"; matched to this insignia.')
+                elif d in COMPLETE_LIST_CREDITS:
+                    author, src, note = COMPLETE_LIST_CREDITS[d]
+                    cr = dict(title=o['image'].rsplit('/', 1)[-1], author=author, page=MTF_COMPLETE_LICBOX, url=o['image'],
+                              license='CC BY-SA 3.0', licenseUrl=LIC['CC BY-SA 3.0'], basis='license-box', note=note,
+                              modified=MODIFIED, listedSource=src)
                 else:
                     cr = dict(title=o['image'].rsplit('/', 1)[-1], author='Not listed in the directory license box', page=MTF_DIR, url=o['image'],
                               license='CC BY-SA 3.0 (page license)', licenseUrl=LIC['CC BY-SA 3.0'], basis='page-license',
-                              note='Insignia shown on the directory without a license-box entry; author still to be confirmed.', modified=MODIFIED)
+                              note='PENDING: insignia shown on the directory with no entry in the directory license box or the Comprehensive List license box; author not confirmed.', modified=MODIFIED)
                     gaps.append(dict(id=sid, gap='insignia credit not in license box'))
             cr['subject'] = f'{o["kind"]} {d} "{o["callsign"]}"'
             credits[cid] = cr
@@ -339,11 +359,20 @@ def build_mtf(credits, meta):
 
 
 # ----------------------------------------------------------------- credits
+BASIS_LABELS = {
+    'license-box': 'Page license box',
+    'commons': 'Wikimedia Commons metadata',
+    'source-license': 'License on source page',
+    'artist-page': "Artist's own page (page license)",
+    'page-license': 'Pending: no per-file license',
+}
+
+
 def render_credits(media, groups, mtf, credits, anomalies):
     e = html.escape
     def row(cid, label, anchor):
         c = credits[cid]
-        basis = {'license-box': 'Page license box', 'commons': 'Wikimedia Commons metadata', 'page-license': 'Page license only (no per-file entry)'}[c['basis']]
+        basis = BASIS_LABELS[c['basis']]
         comp = ''.join(f'<li>{e(x["name"] or "")} — {e(x["author"] or "")} ({e(x["license"] or "")})</li>' for x in c.get('components', []))
         comp = f'<details><summary>Components ({len(c["components"])})</summary><ul>{comp}</ul></details>' if comp else ''
         lic = f'<a href="{e(c["licenseUrl"])}" rel="noopener license">{e(c["license"])}</a>' if c.get('licenseUrl') else e(c['license'])
@@ -354,11 +383,12 @@ def render_credits(media, groups, mtf, credits, anomalies):
     a_rows = ''.join(row(media[x['id']]['credit'], f'{x["itemNumber"]} · {x["name"]}', f'credit-scp-{x["id"]}') for x in anomalies)
     g_rows = ''.join(row(g['credit'], g['name'], f'credit-goi-{g["id"]}') for g in groups)
     m_rows = ''.join(row(t['credit'], f'{t["kind"]} {t["designation"]} “{t["callsign"]}”' + ('' if t['hasInsignia'] else ' (no insignia — shared emblem)'), f'credit-mtf-{t["id"]}') for t in mtf)
-    counts = {b: sum(1 for c in credits.values() if c['basis'] == b) for b in ('license-box', 'commons', 'page-license')}
+    counts = {b: sum(1 for c in credits.values() if c['basis'] == b) for b in BASIS_LABELS}
     src_rows = ''.join(f'<li><a href="{e(x["source"])}" rel="noopener">{e(x["itemNumber"])} — {e(x["name"])}</a></li>' for x in anomalies)
     tpl = (ROOT / 'tools/credits.template.html').read_text()
     return (tpl.replace('{{ANOMALY_ROWS}}', a_rows).replace('{{GROUP_ROWS}}', g_rows).replace('{{MTF_ROWS}}', m_rows).replace('{{HEAD}}', head)
             .replace('{{SOURCE_LIST}}', src_rows).replace('{{N_BOX}}', str(counts['license-box'])).replace('{{N_COMMONS}}', str(counts['commons']))
+            .replace('{{N_SOURCE}}', str(counts['source-license'])).replace('{{N_ARTIST}}', str(counts['artist-page']))
             .replace('{{N_PAGE}}', str(counts['page-license'])).replace('{{N_TOTAL}}', str(len(credits)))
             .replace('{{N_GOI}}', str(len(groups))).replace('{{N_MTF}}', str(len(mtf))))
 
