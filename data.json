@@ -21,7 +21,8 @@
     "capability": "assets/173-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-173",
     "capabilityLabel": "OBSERVATION INTERRUPT",
-    "capabilityStill": "assets/173-capability-static.svg"
+    "capabilityStill": "assets/173-capability-static.svg",
+    "overview": "assets/videos/173.mp4"
   },
   {
     "id": "049",
@@ -45,7 +46,8 @@
     "capability": "assets/049-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-049",
     "capabilityLabel": "BIOLOGICAL ARREST",
-    "capabilityStill": "assets/049-capability-static.svg"
+    "capabilityStill": "assets/049-capability-static.svg",
+    "overview": "assets/videos/049.mp4"
   },
   {
     "id": "096",
@@ -69,7 +71,8 @@
     "capability": "assets/096-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-096",
     "capabilityLabel": "DISTRESS RESPONSE",
-    "capabilityStill": "assets/096-capability-static.svg"
+    "capabilityStill": "assets/096-capability-static.svg",
+    "overview": "assets/videos/096.mp4"
   },
   {
     "id": "682",
@@ -93,7 +96,8 @@
     "capability": "assets/682-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-682",
     "capabilityLabel": "TISSUE RECONSTITUTION",
-    "capabilityStill": "assets/682-capability-static.svg"
+    "capabilityStill": "assets/682-capability-static.svg",
+    "overview": "assets/videos/682.mp4"
   },
   {
     "id": "106",
@@ -117,7 +121,8 @@
     "capability": "assets/106-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-106",
     "capabilityLabel": "BARRIER PHASE",
-    "capabilityStill": "assets/106-capability-static.svg"
+    "capabilityStill": "assets/106-capability-static.svg",
+    "overview": "assets/videos/106.mp4"
   },
   {
     "id": "079",
@@ -141,7 +146,8 @@
     "capability": "assets/079-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-079",
     "capabilityLabel": "MEMORY / ACCESS ATTEMPT",
-    "capabilityStill": "assets/079-capability-static.svg"
+    "capabilityStill": "assets/079-capability-static.svg",
+    "overview": "assets/videos/079.mp4"
   },
   {
     "id": "087",
@@ -165,7 +171,8 @@
     "capability": "assets/087-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-087",
     "capabilityLabel": "UNRESOLVED DESCENT",
-    "capabilityStill": "assets/087-capability-static.svg"
+    "capabilityStill": "assets/087-capability-static.svg",
+    "overview": "assets/videos/087.mp4"
   },
   {
     "id": "093",
@@ -189,7 +196,8 @@
     "capability": "assets/093-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-093",
     "capabilityLabel": "REFLECTIVE THRESHOLD",
-    "capabilityStill": "assets/093-capability-static.svg"
+    "capabilityStill": "assets/093-capability-static.svg",
+    "overview": "assets/videos/093.mp4"
   },
   {
     "id": "035",
@@ -213,7 +221,8 @@
     "capability": "assets/035-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-035",
     "capabilityLabel": "CORROSIVE DISCHARGE",
-    "capabilityStill": "assets/035-capability-static.svg"
+    "capabilityStill": "assets/035-capability-static.svg",
+    "overview": "assets/videos/035.mp4"
   },
   {
     "id": "914",
@@ -237,7 +246,8 @@
     "capability": "assets/914-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-914",
     "capabilityLabel": "INPUT / OUTPUT TRANSFORMATION",
-    "capabilityStill": "assets/914-capability-static.svg"
+    "capabilityStill": "assets/914-capability-static.svg",
+    "overview": "assets/videos/914.mp4"
   },
   {
     "id": "999",
@@ -261,7 +271,8 @@
     "capability": "assets/999-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-999",
     "capabilityLabel": "POSITIVE CONTACT RESPONSE",
-    "capabilityStill": "assets/999-capability-static.svg"
+    "capabilityStill": "assets/999-capability-static.svg",
+    "overview": "assets/videos/999.mp4"
   },
   {
     "id": "3008",
@@ -285,7 +296,8 @@
     "capability": "assets/3008-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-3008",
     "capabilityLabel": "UNBOUNDED FLOORPLAN",
-    "capabilityStill": "assets/3008-capability-static.svg"
+    "capabilityStill": "assets/3008-capability-static.svg",
+    "overview": "assets/videos/3008.mp4"
   },
   {
     "id": "002",
@@ -309,7 +321,8 @@
     "capability": "assets/002-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-002",
     "capabilityLabel": "INTERIOR ASSIMILATION",
-    "capabilityStill": "assets/002-capability-static.svg"
+    "capabilityStill": "assets/002-capability-static.svg",
+    "overview": "assets/videos/002.mp4"
   },
   {
     "id": "008",
@@ -333,7 +346,8 @@
     "capability": "assets/008-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-008",
     "capabilityLabel": "TRANSMISSION MODEL",
-    "capabilityStill": "assets/008-capability-static.svg"
+    "capabilityStill": "assets/008-capability-static.svg",
+    "overview": "assets/videos/008.mp4"
   },
   {
     "id": "055",
@@ -357,7 +371,8 @@
     "capability": "assets/055-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-055",
     "capabilityLabel": "RETENTION FAILURE",
-    "capabilityStill": "assets/055-capability-static.svg"
+    "capabilityStill": "assets/055-capability-static.svg",
+    "overview": "assets/videos/055.mp4"
   },
   {
     "id": "610",
@@ -381,7 +396,8 @@
     "capability": "assets/610-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-610",
     "capabilityLabel": "GROWTH PROGRESSION",
-    "capabilityStill": "assets/610-capability-static.svg"
+    "capabilityStill": "assets/610-capability-static.svg",
+    "overview": "assets/videos/610.mp4"
   },
   {
     "id": "939",
@@ -405,7 +421,8 @@
     "capability": "assets/939-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-939",
     "capabilityLabel": "HUMAN VOCAL MIMICRY",
-    "capabilityStill": "assets/939-capability-static.svg"
+    "capabilityStill": "assets/939-capability-static.svg",
+    "overview": "assets/videos/939.mp4"
   },
   {
     "id": "966",
@@ -429,7 +446,8 @@
     "capability": "assets/966-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-966",
     "capabilityLabel": "INFRARED / SLEEP DISRUPTION",
-    "capabilityStill": "assets/966-capability-static.svg"
+    "capabilityStill": "assets/966-capability-static.svg",
+    "overview": "assets/videos/966.mp4"
   },
   {
     "id": "294",
@@ -453,7 +471,8 @@
     "capability": "assets/294-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-294",
     "capabilityLabel": "DISPENSE CYCLE",
-    "capabilityStill": "assets/294-capability-static.svg"
+    "capabilityStill": "assets/294-capability-static.svg",
+    "overview": "assets/videos/294.mp4"
   },
   {
     "id": "500",
@@ -477,7 +496,8 @@
     "capability": "assets/500-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-500",
     "capabilityLabel": "SYSTEMIC RECOVERY",
-    "capabilityStill": "assets/500-capability-static.svg"
+    "capabilityStill": "assets/500-capability-static.svg",
+    "overview": "assets/videos/500.mp4"
   },
   {
     "id": "426",
@@ -501,7 +521,8 @@
     "capability": "assets/426-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-426",
     "capabilityLabel": "REFERENTIAL SUBSTITUTION",
-    "capabilityStill": "assets/426-capability-static.svg"
+    "capabilityStill": "assets/426-capability-static.svg",
+    "overview": "assets/videos/426.mp4"
   },
   {
     "id": "1048",
@@ -525,7 +546,8 @@
     "capability": "assets/1048-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-1048",
     "capabilityLabel": "UNAUTHORIZED DUPLICATE",
-    "capabilityStill": "assets/1048-capability-static.svg"
+    "capabilityStill": "assets/1048-capability-static.svg",
+    "overview": "assets/videos/1048.mp4"
   },
   {
     "id": "1471",
@@ -549,7 +571,8 @@
     "capability": "assets/1471-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-1471",
     "capabilityLabel": "ESCALATING PROXIMITY",
-    "capabilityStill": "assets/1471-capability-static.svg"
+    "capabilityStill": "assets/1471-capability-static.svg",
+    "overview": "assets/videos/1471.mp4"
   },
   {
     "id": "2006",
@@ -573,7 +596,8 @@
     "capability": "assets/2006-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-2006",
     "capabilityLabel": "FEAR / SHAPE ASSUMPTION",
-    "capabilityStill": "assets/2006-capability-static.svg"
+    "capabilityStill": "assets/2006-capability-static.svg",
+    "overview": "assets/videos/2006.mp4"
   },
   {
     "id": "3000",
@@ -597,7 +621,8 @@
     "capability": "assets/3000-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-3000",
     "capabilityLabel": "MNESTIC DEGRADATION",
-    "capabilityStill": "assets/3000-capability-static.svg"
+    "capabilityStill": "assets/3000-capability-static.svg",
+    "overview": "assets/videos/3000.mp4"
   },
   {
     "id": "131",
@@ -621,7 +646,8 @@
     "capability": "assets/131-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-131",
     "capabilityLabel": "CONTINUOUS OBSERVATION",
-    "capabilityStill": "assets/131-capability-static.svg"
+    "capabilityStill": "assets/131-capability-static.svg",
+    "overview": "assets/videos/131.mp4"
   },
   {
     "id": "513",
@@ -645,7 +671,8 @@
     "capability": "assets/513-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-513",
     "capabilityLabel": "AUDITORY / PERIPHERAL EFFECT",
-    "capabilityStill": "assets/513-capability-static.svg"
+    "capabilityStill": "assets/513-capability-static.svg",
+    "overview": "assets/videos/513.mp4"
   },
   {
     "id": "354",
@@ -669,7 +696,8 @@
     "capability": "assets/354-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-354",
     "capabilityLabel": "SURFACE EMERGENCE",
-    "capabilityStill": "assets/354-capability-static.svg"
+    "capabilityStill": "assets/354-capability-static.svg",
+    "overview": "assets/videos/354.mp4"
   },
   {
     "id": "076",
@@ -693,7 +721,8 @@
     "capability": "assets/076-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-076",
     "capabilityLabel": "WEAPON MANIFESTATION",
-    "capabilityStill": "assets/076-capability-static.svg"
+    "capabilityStill": "assets/076-capability-static.svg",
+    "overview": "assets/videos/076.mp4"
   },
   {
     "id": "073",
@@ -717,7 +746,8 @@
     "capability": "assets/073-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-073",
     "capabilityLabel": "DAMAGE REFLECTION",
-    "capabilityStill": "assets/073-capability-static.svg"
+    "capabilityStill": "assets/073-capability-static.svg",
+    "overview": "assets/videos/073.mp4"
   },
   {
     "id": "343",
@@ -741,7 +771,8 @@
     "capability": "assets/343-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-343",
     "capabilityLabel": "SOLID BARRIER DISREGARDED",
-    "capabilityStill": "assets/343-capability-static.svg"
+    "capabilityStill": "assets/343-capability-static.svg",
+    "overview": "assets/videos/343.mp4"
   },
   {
     "id": "053",
@@ -765,7 +796,8 @@
     "capability": "assets/053-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-053",
     "capabilityLabel": "PROXIMITY RESPONSE",
-    "capabilityStill": "assets/053-capability-static.svg"
+    "capabilityStill": "assets/053-capability-static.svg",
+    "overview": "assets/videos/053.mp4"
   },
   {
     "id": "2317",
@@ -789,7 +821,8 @@
     "capability": "assets/2317-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-2317",
     "capabilityLabel": "RESTRAINT INTEGRITY",
-    "capabilityStill": "assets/2317-capability-static.svg"
+    "capabilityStill": "assets/2317-capability-static.svg",
+    "overview": "assets/videos/2317.mp4"
   },
   {
     "id": "701",
@@ -813,7 +846,8 @@
     "capability": "assets/701-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-701",
     "capabilityLabel": "UNSCRIPTED APPEARANCE",
-    "capabilityStill": "assets/701-capability-static.svg"
+    "capabilityStill": "assets/701-capability-static.svg",
+    "overview": "assets/videos/701.mp4"
   },
   {
     "id": "012",
@@ -837,7 +871,8 @@
     "capability": "assets/012-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-012",
     "capabilityLabel": "COMPULSIVE COMPLETION",
-    "capabilityStill": "assets/012-capability-static.svg"
+    "capabilityStill": "assets/012-capability-static.svg",
+    "overview": "assets/videos/012.mp4"
   },
   {
     "id": "2521",
@@ -861,6 +896,7 @@
     "capability": "assets/2521-capability.svg",
     "source": "https://scp-wiki.wikidot.com/scp-2521",
     "capabilityLabel": "◼ ◼◼ ◼◼◼",
-    "capabilityStill": "assets/2521-capability-static.svg"
+    "capabilityStill": "assets/2521-capability-static.svg",
+    "overview": "assets/videos/2521.mp4"
   }
 ]

@@ -15,6 +15,7 @@ All application paths are relative, including `.nojekyll` for an eventual GitHub
 ## Contents
 
 - `data.json`: original dossier summaries, two original fictional incident vignettes per entry, classes, sources, and visual paths.
+- `assets/videos/`: one short silent overview film per entry (`overview` field in `data.json`), played in-file with a native `<video>` player. Original AI-generated fan reconstructions animated from the archive's own illustrations; not downloaded from the wiki, YouTube, or any third-party channel.
 - `assets/`: one original specimen illustration and one original animated capability panel per entry. Not photographs, official assets, or downloaded wiki art.
 - `build_assets.py`: reproducible illustration and dataset generator; automatically runs `enhance_plates.py` to add the 36 individual behavioral diagrams. Python standard library only.
 - `app.js`: records search, class filters, full-page dossier viewer, keyboard navigation, and original Web Audio synthesis.

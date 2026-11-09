@@ -5,3 +5,6 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 @media(max-width:650px){.plate-caption{font-size:8px}.plate-caption>span:first-child{max-width:68%}.plate-caption>span:last-child{font-size:6px;padding-top:1px}}
+
+.overview-panel{margin:0 0 16px;padding:9px;border:1px solid #4e563f;background:#222b20;position:relative}.overview-panel:before{content:'REC';position:absolute;top:16px;left:16px;z-index:1;font:9px var(--mono);letter-spacing:1px;color:#e3c9b8;background:#1118;padding:2px 6px;pointer-events:none}.overview-video{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:#0d120e;filter:sepia(.18) contrast(1.04)}
+@media(max-width:650px){.overview-panel{padding:6px;margin-bottom:12px}.overview-video{min-height:200px}.overview-panel:before{top:11px;left:11px;font-size:8px}}
