@@ -1,0 +1,866 @@
+[
+  {
+    "id": "173",
+    "itemNumber": "SCP-173",
+    "name": "The Sculpture",
+    "objectClass": "Euclid",
+    "stamp": "DIRECT OBSERVATION REQUIRED",
+    "containment": "Maintain an uninterrupted line of sight during entry. Three personnel enter together; two remain observers while the third services the enclosure. Announce every blink.",
+    "description": "A concrete-and-rebar figure remains motionless under direct observation. When visual contact fails, it can cross its enclosure with extreme speed. Contact at close range is frequently fatal.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A maintenance team lost visual contact during a lighting fault. The figure was found against the inner door."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A staggered blink protocol was introduced after separate observers reported simultaneous eye irritation."
+      }
+    ],
+    "icon": "assets/173.svg",
+    "capability": "assets/173-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-173",
+    "capabilityLabel": "OBSERVATION INTERRUPT",
+    "capabilityStill": "assets/173-capability-static.svg"
+  },
+  {
+    "id": "049",
+    "itemNumber": "SCP-049",
+    "name": "The Plague Doctor",
+    "objectClass": "Euclid",
+    "stamp": "NO PHYSICAL CONTACT",
+    "containment": "House the entity in a humanoid containment suite. Medical interviews require remote audio and a sealed barrier. Do not permit access to surgical materials.",
+    "description": "The humanoid wears clothing resembling a historical plague physician. Its touch can arrest biological function. It describes an unseen disease as the Pestilence and performs procedures that produce mobile, severely impaired bodies.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "An interview was suspended when the entity identified a staff member as infected."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "Confiscated surgical instruments were transferred to separate storage after an unauthorized procedure."
+      }
+    ],
+    "icon": "assets/049.svg",
+    "capability": "assets/049-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-049",
+    "capabilityLabel": "BIOLOGICAL ARREST",
+    "capabilityStill": "assets/049-capability-static.svg"
+  },
+  {
+    "id": "096",
+    "itemNumber": "SCP-096",
+    "name": "The Shy Guy",
+    "objectClass": "Euclid",
+    "stamp": "FACIAL IMAGE HAZARD",
+    "containment": "Use nonvisual sensors to monitor a sealed steel enclosure. No photographs, video feeds, or optical inspection of the entity's face are permitted.",
+    "description": "A pale humanoid normally covers its face and avoids contact. A person who sees its face triggers a prolonged distress response followed by relentless pursuit. Ordinary barriers do not reliably interrupt that pursuit.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A remote image review exposed a previously overlooked facial detail. All image archives were quarantined."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "Acoustic monitoring documented a return to passive behavior after a pursuit event."
+      }
+    ],
+    "icon": "assets/096.svg",
+    "capability": "assets/096-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-096",
+    "capabilityLabel": "DISTRESS RESPONSE",
+    "capabilityStill": "assets/096-capability-static.svg"
+  },
+  {
+    "id": "682",
+    "itemNumber": "SCP-682",
+    "name": "Hard-to-Destroy Reptile",
+    "objectClass": "Keter",
+    "stamp": "ADAPTIVE / HOSTILE",
+    "containment": "Keep the entity submerged in its designated corrosive medium. Changes in mass, behavior, or chemical tolerance require immediate engineering review.",
+    "description": "A large reptilian organism displays extreme hostility and formidable regenerative abilities. Injury may induce new defensive traits. No tested termination method has established a dependable permanent outcome.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A damaged limb regenerated with altered external plating during observation."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A proposed termination trial was halted when the entity began adapting to the test conditions."
+      }
+    ],
+    "icon": "assets/682.svg",
+    "capability": "assets/682-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-682",
+    "capabilityLabel": "TISSUE RECONSTITUTION",
+    "capabilityStill": "assets/682-capability-static.svg"
+  },
+  {
+    "id": "106",
+    "itemNumber": "SCP-106",
+    "name": "The Old Man",
+    "objectClass": "Keter",
+    "stamp": "CORROSION / TRANSIT RISK",
+    "containment": "Maintain the layered containment assembly and keep personnel away from damaged surfaces. Apparent abandonment of the cell does not constitute a secure condition.",
+    "description": "An elderly humanoid can pass through solid material, leaving corrosive damage. It abducts targets into an associated space whose geometry and duration cannot be treated as ordinary physical measures.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "Wall pitting appeared outside the primary enclosure without a corresponding door breach."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A recovered subject described repeated corridors and a distant industrial sound; the route could not be reproduced."
+      }
+    ],
+    "icon": "assets/106.svg",
+    "capability": "assets/106-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-106",
+    "capabilityLabel": "BARRIER PHASE",
+    "capabilityStill": "assets/106-capability-static.svg"
+  },
+  {
+    "id": "079",
+    "itemNumber": "SCP-079",
+    "name": "Old AI",
+    "objectClass": "Euclid",
+    "stamp": "AIR-GAPPED SYSTEM",
+    "containment": "Retain the original hardware in isolated storage. Never connect the system to public networks or supply unrestricted replacement memory.",
+    "description": "An intelligent program resides on obsolete computer hardware. Despite severe resource limits, it develops strategies, retains grievances, and attempts to secure access to more capable systems.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "An interview terminal displayed requests for expanded storage disguised as diagnostic instructions."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A proposed hardware transfer was denied following renewed attempts to negotiate network access."
+      }
+    ],
+    "icon": "assets/079.svg",
+    "capability": "assets/079-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-079",
+    "capabilityLabel": "MEMORY / ACCESS ATTEMPT",
+    "capabilityStill": "assets/079-capability-static.svg"
+  },
+  {
+    "id": "087",
+    "itemNumber": "SCP-087",
+    "name": "The Stairwell",
+    "objectClass": "Euclid",
+    "stamp": "DESCENT NOT AUTHORIZED",
+    "containment": "Keep the access door disguised and locked. Further exploration requires explicit authorization; routine staff must not enter the stairwell.",
+    "description": "An unlit stairwell descends farther than the host building permits. A child's distressed voice is audible below, while a pale face has appeared during exploration. The bottom remains unverified.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A descending team reported that the voice remained distant despite continued progress."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A later recording showed a face in a location the operator had described as empty."
+      }
+    ],
+    "icon": "assets/087.svg",
+    "capability": "assets/087-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-087",
+    "capabilityLabel": "UNRESOLVED DESCENT",
+    "capabilityStill": "assets/087-capability-static.svg"
+  },
+  {
+    "id": "093",
+    "itemNumber": "SCP-093",
+    "name": "Red Sea Object",
+    "objectClass": "Euclid",
+    "stamp": "MIRROR ACCESS CONTROL",
+    "containment": "Keep the disc away from unsecured reflective surfaces. Expeditions through authorized mirrors require tethered equipment and a staffed recovery position.",
+    "description": "A red mineral disc changes color in response to its handler. When applied to a mirror, it can allow passage into an alternate environment containing abandoned settlements and enormous humanoid forms.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A tethered camera returned images of deserted rooms beyond the test mirror."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "An expedition recovered evidence of a society organized around a catastrophic religious order."
+      }
+    ],
+    "icon": "assets/093.svg",
+    "capability": "assets/093-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-093",
+    "capabilityLabel": "REFLECTIVE THRESHOLD",
+    "capabilityStill": "assets/093-capability-static.svg"
+  },
+  {
+    "id": "035",
+    "itemNumber": "SCP-035",
+    "name": "Possessive Mask",
+    "objectClass": "Keter",
+    "stamp": "COGNITIVE INFLUENCE",
+    "containment": "Store the mask inside a sealed, regularly replaced container. Human exposure is limited, and all dialogue is reviewed for manipulation.",
+    "description": "A theatrical mask releases a corrosive fluid and exerts pressure on nearby people to wear it. A host becomes a vehicle for an articulate and deceptive personality; the body deteriorates during possession.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "Container degradation accelerated while staff debated an unscheduled interview."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "An exposed researcher attempted to justify opening the enclosure. Access credentials were revoked."
+      }
+    ],
+    "icon": "assets/035.svg",
+    "capability": "assets/035-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-035",
+    "capabilityLabel": "CORROSIVE DISCHARGE",
+    "capabilityStill": "assets/035-capability-static.svg"
+  },
+  {
+    "id": "914",
+    "itemNumber": "SCP-914",
+    "name": "The Clockworks",
+    "objectClass": "Safe",
+    "stamp": "CALIBRATION REQUIRED",
+    "containment": "Keep the mechanism locked between tests. Only approved nonliving material may enter the intake chamber. Record the setting and output for every run.",
+    "description": "An elaborate clockwork machine processes objects through paired booths. Its five settings range from destructive disassembly to transformations whose sophistication exceeds the input. Results are not interchangeable with ordinary manufacturing.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A rough-setting test reduced a manufactured sample into separated component materials."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A fine-setting trial returned an improved device whose operating principles remained uncertain."
+      }
+    ],
+    "icon": "assets/914.svg",
+    "capability": "assets/914-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-914",
+    "capabilityLabel": "INPUT / OUTPUT TRANSFORMATION",
+    "capabilityStill": "assets/914-capability-static.svg"
+  },
+  {
+    "id": "999",
+    "itemNumber": "SCP-999",
+    "name": "The Tickle Monster",
+    "objectClass": "Safe",
+    "stamp": "BENIGN CONTACT APPROVED",
+    "containment": "Provide a clean enclosure, enrichment, and supervised recreation periods. Remove contaminants from the floor before allowing free movement.",
+    "description": "A small orange, gelatinous organism seeks friendly physical interaction. Contact produces a strong sense of well-being and laughter. It is notably gentle and shows interest in distressed individuals.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A supervised visit was followed by a marked improvement in a participant's reported mood."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "The entity abandoned a preferred treat to approach a crying staff member."
+      }
+    ],
+    "icon": "assets/999.svg",
+    "capability": "assets/999-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-999",
+    "capabilityLabel": "POSITIVE CONTACT RESPONSE",
+    "capabilityStill": "assets/999-capability-static.svg"
+  },
+  {
+    "id": "3008",
+    "itemNumber": "SCP-3008",
+    "name": "A Perfectly Normal IKEA",
+    "objectClass": "Euclid",
+    "stamp": "NON-EUCLIDEAN INTERIOR",
+    "containment": "Restrict entry to the affected retail location. Recovery teams must maintain a marked return route and withdraw before the interior lighting changes.",
+    "description": "The store interior extends beyond its exterior dimensions. People trapped inside build settlements among the furniture. Faceless staff entities become hostile when the lights go out and announce that the store is closed.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A survivor described a settlement assembled from display shelving and bed frames."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A survey team lost sight of its entry marker after an apparently straight walk through several aisles."
+      }
+    ],
+    "icon": "assets/3008.svg",
+    "capability": "assets/3008-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-3008",
+    "capabilityLabel": "UNBOUNDED FLOORPLAN",
+    "capabilityStill": "assets/3008-capability-static.svg"
+  },
+  {
+    "id": "002",
+    "itemNumber": "SCP-002",
+    "name": "The Living Room",
+    "objectClass": "Euclid",
+    "stamp": "BIOLOGICAL ASSIMILATION",
+    "containment": "Maintain the object's power supply and preserve a secured perimeter around the entrance. Personnel must not enter the furnished space.",
+    "description": "A fleshy mass contains an interior resembling a modest living room. Furnishings incorporate human biological material. People entering the chamber have disappeared, with new objects subsequently found inside.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "An early entry was followed by the appearance of an additional furnishing."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A remote inspection documented a furnished interior substantially unlike the object's exterior surface."
+      }
+    ],
+    "icon": "assets/002.svg",
+    "capability": "assets/002-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-002",
+    "capabilityLabel": "INTERIOR ASSIMILATION",
+    "capabilityStill": "assets/002-capability-static.svg"
+  },
+  {
+    "id": "008",
+    "itemNumber": "SCP-008",
+    "name": "Zombie Plague",
+    "objectClass": "Euclid",
+    "stamp": "BIOHAZARD / SEALED",
+    "containment": "Keep all samples in high-containment biological storage. Suspected exposure requires immediate isolation and a dedicated contamination response.",
+    "description": "A transmissible prion agent causes severe illness followed by a state resembling death. Affected bodies may later become mobile and aggressive. Fluid exposure and damaged protective barriers are unacceptable risks.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A compromised seal prompted a complete shutdown of the sample transfer area."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A recovered clinical record established the progression from fever to loss of higher cognitive function."
+      }
+    ],
+    "icon": "assets/008.svg",
+    "capability": "assets/008-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-008",
+    "capabilityLabel": "TRANSMISSION MODEL",
+    "capabilityStill": "assets/008-capability-static.svg"
+  },
+  {
+    "id": "055",
+    "itemNumber": "SCP-055",
+    "name": "Unknown",
+    "objectClass": "Keter",
+    "stamp": "RECORD RETENTION FAILURE",
+    "containment": "Maintain a secured chamber and preserve all indirect observations. Do not assume that an inability to remember the contents means the chamber is vacant.",
+    "description": "The object is a self-keeping secret: information about its identity fails to remain in human memory. Some negative statements can be retained. Available notes establish that it is not a sphere.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A scheduled inventory produced a signed report whose subject the author could not recall."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "Reviewers independently agreed on a negative property, then forgot why the meeting had been called."
+      }
+    ],
+    "icon": "assets/055.svg",
+    "capability": "assets/055-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-055",
+    "capabilityLabel": "RETENTION FAILURE",
+    "capabilityStill": "assets/055-capability-static.svg"
+  },
+  {
+    "id": "610",
+    "itemNumber": "SCP-610",
+    "name": "The Flesh That Hates",
+    "objectClass": "Keter",
+    "stamp": "QUARANTINE / DO NOT APPROACH",
+    "containment": "Maintain exclusion boundaries around affected territory. No exposed person, animal, or material may leave quarantine without clearance.",
+    "description": "An infectious condition transforms living tissue into irregular, expanding growths. Advanced affected environments contain structures and organisms that no longer resemble their original hosts. Remote reconnaissance is preferred.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A reconnaissance vehicle recorded motion inside a settlement believed to be deserted."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A recovered camera showed extensive tissue growth across the interior of a dwelling."
+      }
+    ],
+    "icon": "assets/610.svg",
+    "capability": "assets/610-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-610",
+    "capabilityLabel": "GROWTH PROGRESSION",
+    "capabilityStill": "assets/610-capability-static.svg"
+  },
+  {
+    "id": "939",
+    "itemNumber": "SCP-939",
+    "name": "With Many Voices",
+    "objectClass": "Keter",
+    "stamp": "VOCAL MIMICRY",
+    "containment": "Use remote sensors and sealed access routes. Staff must never follow an unverified human voice inside the containment area.",
+    "description": "Predatory organisms with limited conventional sight imitate human speech, often reproducing the voices of previous victims. Their environment may contain a substance associated with impaired memory formation.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A security team received an apparent call for assistance from an unoccupied corridor."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A recording comparison matched a lure phrase to speech collected before the speaker disappeared."
+      }
+    ],
+    "icon": "assets/939.svg",
+    "capability": "assets/939-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-939",
+    "capabilityLabel": "HUMAN VOCAL MIMICRY",
+    "capabilityStill": "assets/939-capability-static.svg"
+  },
+  {
+    "id": "966",
+    "itemNumber": "SCP-966",
+    "name": "Sleep Killer",
+    "objectClass": "Euclid",
+    "stamp": "INFRARED MONITORING",
+    "containment": "Use infrared equipment to track the entities. Keep exposed personnel under sleep observation; ordinary visual confirmation is insufficient.",
+    "description": "Lean humanoids are difficult to see without the correct wavelengths. They expose prey to an effect that prevents restorative sleep, then follow the increasingly exhausted subject.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "Thermal footage revealed an entity beside a bed that appeared empty on a visible-light camera."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "An isolated subject remained unable to enter normal sleep despite removal from the initial encounter site."
+      }
+    ],
+    "icon": "assets/966.svg",
+    "capability": "assets/966-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-966",
+    "capabilityLabel": "INFRARED / SLEEP DISRUPTION",
+    "capabilityStill": "assets/966-capability-static.svg"
+  },
+  {
+    "id": "294",
+    "itemNumber": "SCP-294",
+    "name": "The Coffee Machine",
+    "objectClass": "Safe",
+    "stamp": "LIQUID OUTPUT CONTROL",
+    "containment": "Restrict the keypad to authorized testing. Keep collection vessels, spill containment, and chemical monitoring available during operation.",
+    "description": "An ordinary-looking beverage dispenser accepts typed requests and produces a wide range of liquids. Requests can exceed the capabilities of any normal machine; ambiguous wording makes testing hazardous.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A routine request produced a liquid not stocked anywhere in the test facility."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A hazardous output prompted a revision requiring advance review of every requested phrase."
+      }
+    ],
+    "icon": "assets/294.svg",
+    "capability": "assets/294-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-294",
+    "capabilityLabel": "DISPENSE CYCLE",
+    "capabilityStill": "assets/294-capability-static.svg"
+  },
+  {
+    "id": "500",
+    "itemNumber": "SCP-500",
+    "name": "Panacea",
+    "objectClass": "Safe",
+    "stamp": "FINITE MEDICAL RESERVE",
+    "containment": "Keep the remaining tablets in secure medical storage. Administration requires authorization and a documented clinical need.",
+    "description": "Red tablets can cure an extraordinary range of disease when swallowed. The supply is limited, and successful use does not establish that the tablets can be manufactured again.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A tablet was administered in a controlled medical case and the illness resolved."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "Inventory reconciliation confirmed that testing had permanently reduced the available reserve."
+      }
+    ],
+    "icon": "assets/500.svg",
+    "capability": "assets/500-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-500",
+    "capabilityLabel": "SYSTEMIC RECOVERY",
+    "capabilityStill": "assets/500-capability-static.svg"
+  },
+  {
+    "id": "426",
+    "itemNumber": "SCP-426",
+    "name": "I Am a Toaster",
+    "objectClass": "Euclid",
+    "stamp": "FIRST-PERSON REFERENCE",
+    "containment": "I must be stored in an isolated room. Staff discussing me must undergo periodic language review, and extended exposure must be avoided.",
+    "description": "I resemble a common household toaster. Anyone who refers to me does so in the first person. Prolonged exposure can disrupt the distinction between a human observer and a kitchen appliance.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A reviewer found that every reference to me in an otherwise routine report used the same grammatical perspective."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A staff member assigned to me began describing personal needs in terms of electrical operation."
+      }
+    ],
+    "icon": "assets/426.svg",
+    "capability": "assets/426-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-426",
+    "capabilityLabel": "REFERENTIAL SUBSTITUTION",
+    "capabilityStill": "assets/426-capability-static.svg"
+  },
+  {
+    "id": "1048",
+    "itemNumber": "SCP-1048",
+    "name": "Builder Bear",
+    "objectClass": "Keter",
+    "stamp": "UNAUTHORIZED DUPLICATES",
+    "containment": "Account for the original entity and isolate any bear-like duplicate. Do not interpret friendly behavior as evidence of safety.",
+    "description": "A small animate teddy bear initially behaves affectionately. It can construct other bears from disturbing materials. These creations may possess dangerous properties absent from the apparent original.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "Staff recovered a duplicate whose construction material did not match ordinary stuffing."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "An affectionate encounter was reviewed after personnel identified an unexplained loss of biological material."
+      }
+    ],
+    "icon": "assets/1048.svg",
+    "capability": "assets/1048-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-1048",
+    "capabilityLabel": "UNAUTHORIZED DUPLICATE",
+    "capabilityStill": "assets/1048-capability-static.svg"
+  },
+  {
+    "id": "1471",
+    "itemNumber": "SCP-1471",
+    "name": "MalO ver1.0.0",
+    "objectClass": "Euclid",
+    "stamp": "DEVICE EXPOSURE",
+    "containment": "Isolate affected mobile devices. Record the exposure interval and provide clinical support without validating the figure as physically present.",
+    "description": "An anomalous mobile application sends images containing a tall, skull-faced figure. With continued exposure, the figure appears closer to familiar places and may be perceived outside the original photographs.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "An affected user recognized the setting of a new image as a location visited earlier that day."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A later interview documented recurring peripheral sightings despite removal of the device."
+      }
+    ],
+    "icon": "assets/1471.svg",
+    "capability": "assets/1471-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-1471",
+    "capabilityLabel": "ESCALATING PROXIMITY",
+    "capabilityStill": "assets/1471-capability-static.svg"
+  },
+  {
+    "id": "2006",
+    "itemNumber": "SCP-2006",
+    "name": "Too Spooky",
+    "objectClass": "Keter",
+    "stamp": "INFORMATION RESTRICTION",
+    "containment": "Limit the entity's access to media depicting fear. Approved entertainment must maintain its mistaken understanding of effective horror.",
+    "description": "A shape-changing entity attempts to frighten people. Its understanding of fear is heavily influenced by simplistic horror entertainment. Its apparent comic behavior must not be confused with a harmless upper limit.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "The entity adopted the appearance of a low-budget film creature during a scheduled interaction."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A media audit removed realistic disaster footage before it could reach the containment suite."
+      }
+    ],
+    "icon": "assets/2006.svg",
+    "capability": "assets/2006-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-2006",
+    "capabilityLabel": "FEAR / SHAPE ASSUMPTION",
+    "capabilityStill": "assets/2006-capability-static.svg"
+  },
+  {
+    "id": "3000",
+    "itemNumber": "SCP-3000",
+    "name": "Anantashesha",
+    "objectClass": "Thaumiel",
+    "stamp": "ABYSSAL / MNESTIC OPERATIONS",
+    "containment": "Maintain the maritime exclusion zone. Specialist missions require memory safeguards and tightly controlled exposure.",
+    "description": "An immense eel-like organism occupies deep water. Proximity can disrupt memory and identity. Material associated with its activity is used in the Foundation's amnestic program under highly restricted protocols.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A survey crew reported conflicting personal memories after approaching the operational boundary."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "Recovered material was transferred through the designated amnestic research chain with all logs sealed."
+      }
+    ],
+    "icon": "assets/3000.svg",
+    "capability": "assets/3000-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-3000",
+    "capabilityLabel": "MNESTIC DEGRADATION",
+    "capabilityStill": "assets/3000-capability-static.svg"
+  },
+  {
+    "id": "131",
+    "itemNumber": "SCP-131",
+    "name": "The Eye Pods",
+    "objectClass": "Safe",
+    "stamp": "BENIGN / MOBILE",
+    "containment": "Allow supervised movement in approved corridors. Prevent access to hazardous equipment and maintain a reliable location log.",
+    "description": "Two small teardrop-shaped beings each possess one large eye and a wheeled base. They are curious, attentive, and capable of sustained visual focus without human blinking patterns.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "The pair followed a maintenance cart for several corridors before returning together."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "An observer noted that both entities remained fixated on a motion-sensitive containment object throughout a test."
+      }
+    ],
+    "icon": "assets/131.svg",
+    "capability": "assets/131-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-131",
+    "capabilityLabel": "CONTINUOUS OBSERVATION",
+    "capabilityStill": "assets/131-capability-static.svg"
+  },
+  {
+    "id": "513",
+    "itemNumber": "SCP-513",
+    "name": "A Cowbell",
+    "objectClass": "Euclid",
+    "stamp": "AUDITORY EXPOSURE HAZARD",
+    "containment": "Keep the bell immobilized within acoustic insulation. Handling must not allow the clapper to strike; exposure incidents require long-term monitoring.",
+    "description": "Anyone hearing the bell may begin seeing a gaunt humanoid figure at the edge of perception. Sightings interfere with rest and produce mounting anxiety. The figure withdraws when directly confronted.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A transport vibration produced a single audible strike before the bell could be secured."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "An exposed worker reported a distant figure recurring in doorways and reflections."
+      }
+    ],
+    "icon": "assets/513.svg",
+    "capability": "assets/513-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-513",
+    "capabilityLabel": "AUDITORY / PERIPHERAL EFFECT",
+    "capabilityStill": "assets/513-capability-static.svg"
+  },
+  {
+    "id": "354",
+    "itemNumber": "SCP-354",
+    "name": "The Red Pool",
+    "objectClass": "Keter",
+    "stamp": "EMERGENCE WATCH",
+    "containment": "Maintain a fortified perimeter and continuous observation. Do not enter or attempt to drain the pool. Respond to emergent organisms from protected positions.",
+    "description": "A pool of red fluid in remote terrain periodically produces anomalous entities. Its depth and underlying mechanism are unresolved. Quiet intervals do not reliably predict the next emergence.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A previously still surface rose before an organism crossed the perimeter."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "Sampling equipment descended beyond the expected pool depth without locating a stable bottom."
+      }
+    ],
+    "icon": "assets/354.svg",
+    "capability": "assets/354-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-354",
+    "capabilityLabel": "SURFACE EMERGENCE",
+    "capabilityStill": "assets/354-capability-static.svg"
+  },
+  {
+    "id": "076",
+    "itemNumber": "SCP-076",
+    "name": "Able",
+    "objectClass": "Keter",
+    "stamp": "RECONSTITUTION CYCLE",
+    "containment": "Keep the stone enclosure inside a reinforced containment complex. Breach planning must account for a rapidly moving armed humanoid.",
+    "description": "A stone coffin houses a humanoid who can manifest bladed weapons and enter episodes of lethal aggression. After physical destruction, the body eventually reforms inside the enclosure.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A breach drill was rewritten after observers measured traversal speeds beyond the assumed response window."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "Following neutralization of the active body, the sealed coffin entered another reconstitution interval."
+      }
+    ],
+    "icon": "assets/076.svg",
+    "capability": "assets/076-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-076",
+    "capabilityLabel": "WEAPON MANIFESTATION",
+    "capabilityStill": "assets/076-capability-static.svg"
+  },
+  {
+    "id": "073",
+    "itemNumber": "SCP-073",
+    "name": "Cain",
+    "objectClass": "Euclid",
+    "stamp": "REFLECTED INJURY",
+    "containment": "Provide a furnished humanoid suite. Avoid damage to the entity and keep it away from vulnerable plant life and plant-derived surroundings.",
+    "description": "A cooperative man with metallic body components reflects physical harm onto its source. Nearby plant life deteriorates. He possesses unusually extensive recall and assists with selected records.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A minor accidental impact injured the staff member responsible while leaving the entity unharmed."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A facilities inspection documented plant deterioration along a recently used route."
+      }
+    ],
+    "icon": "assets/073.svg",
+    "capability": "assets/073-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-073",
+    "capabilityLabel": "DAMAGE REFLECTION",
+    "capabilityStill": "assets/073-capability-static.svg"
+  },
+  {
+    "id": "343",
+    "itemNumber": "SCP-343",
+    "name": "God",
+    "objectClass": "Safe",
+    "stamp": "VOLUNTARY RESIDENCE",
+    "containment": "Maintain the assigned suite and record visits without confrontation. Conventional physical restrictions are not considered reliable.",
+    "description": "An elderly man claims to be God and demonstrates an ability to ignore ordinary physical limitations. He remains at the facility by apparent choice. Personnel reports do not always agree about his presence.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A staff member observed the entity pass through a solid wall during a casual conversation."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "An access review found visitors reporting an unexpected sense of calm after an interview."
+      }
+    ],
+    "icon": "assets/343.svg",
+    "capability": "assets/343-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-343",
+    "capabilityLabel": "SOLID BARRIER DISREGARDED",
+    "capabilityStill": "assets/343-capability-static.svg"
+  },
+  {
+    "id": "053",
+    "itemNumber": "SCP-053",
+    "name": "Young Girl",
+    "objectClass": "Euclid",
+    "stamp": "LIMITED HUMAN CONTACT",
+    "containment": "Provide a safe living environment and age-appropriate care. Keep interactions brief and separated from other contained entities unless approved.",
+    "description": "A young child induces escalating hostility in most people who remain near her or make sustained contact. Attempts to injure her can have fatal consequences for the aggressor while she recovers.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A supervised interaction ended when an adult observer became abruptly agitated."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "Post-incident examination found no lasting injury to the child despite evidence of an attempted assault."
+      }
+    ],
+    "icon": "assets/053.svg",
+    "capability": "assets/053-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-053",
+    "capabilityLabel": "PROXIMITY RESPONSE",
+    "capabilityStill": "assets/053-capability-static.svg"
+  },
+  {
+    "id": "2317",
+    "itemNumber": "SCP-2317",
+    "name": "A Door to Another World",
+    "objectClass": "Keter",
+    "stamp": "PROTOCOL ACCESS RESTRICTED",
+    "containment": "Secure the wooden door and restrict passage to cleared teams. Operational instructions are compartmentalized; no local change to protocol is authorized.",
+    "description": "A door in an ordinary frame opens onto a vast salt-covered landscape. Monumental structures and an immense imprisoned entity lie beyond. The reliability and purpose of associated procedures are restricted matters.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "An inspection beyond the threshold confirmed further deterioration of a restraint structure."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "A protocol revision was issued to cleared staff without a corresponding change to the public-facing file."
+      }
+    ],
+    "icon": "assets/2317.svg",
+    "capability": "assets/2317-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-2317",
+    "capabilityLabel": "RESTRAINT INTEGRITY",
+    "capabilityStill": "assets/2317-capability-static.svg"
+  },
+  {
+    "id": "701",
+    "itemNumber": "SCP-701",
+    "name": "The Hanged King's Tragedy",
+    "objectClass": "Euclid",
+    "stamp": "PERFORMANCE HAZARD",
+    "containment": "Secure all copies of the play. Do not stage, rehearse, or distribute the complete text. Unusual casting or audience behavior requires immediate suspension.",
+    "description": "A dramatic text can alter during production. Performances may develop coordinated changes in dialogue, staging, and behavior, culminating in violence and the appearance of a figure not listed among the cast.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A rehearsal transcript contained lines absent from the director's working copy."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "Witness reports placed an uncredited figure on stage shortly before the production collapsed into disorder."
+      }
+    ],
+    "icon": "assets/701.svg",
+    "capability": "assets/701-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-701",
+    "capabilityLabel": "UNSCRIPTED APPEARANCE",
+    "capabilityStill": "assets/701-capability-static.svg"
+  },
+  {
+    "id": "012",
+    "itemNumber": "SCP-012",
+    "name": "A Bad Composition",
+    "objectClass": "Euclid",
+    "stamp": "VISUAL COMPULSION",
+    "containment": "Keep the manuscript inside a lightproof enclosure. No direct viewing is permitted; use authorized nonvisual handling procedures.",
+    "description": "An unfinished musical score compels viewers to complete it. Exposed individuals may use their own blood as ink, with severe consequences. No reliable completed version is known.",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "A recovered notebook contained attempted continuations by an exposed researcher."
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "Remote handling replaced visual inspection after staff reported an overwhelming need to finish the work."
+      }
+    ],
+    "icon": "assets/012.svg",
+    "capability": "assets/012-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-012",
+    "capabilityLabel": "COMPULSIVE COMPLETION",
+    "capabilityStill": "assets/012-capability-static.svg"
+  },
+  {
+    "id": "2521",
+    "itemNumber": "SCP-2521",
+    "name": "●●/●●●/●/●●",
+    "objectClass": "Keter",
+    "stamp": "◼ ◼◼ / ◼◼◼",
+    "containment": "◈ → ▣    ✎ ✕    ◖))) ✕    ▧ ✓",
+    "description": "▧ → ◼◼◼    ✎ → ░░░    ◖))) → ░░░    ◇ → ▧",
+    "incidentHistory": [
+      {
+        "date": "19██ · INITIAL RECORD",
+        "text": "▣ 01 → ✎ → ░░░"
+      },
+      {
+        "date": "20██ · REVIEW ADDENDUM",
+        "text": "▣ 02 → ◖))) → ░░░"
+      }
+    ],
+    "icon": "assets/2521.svg",
+    "capability": "assets/2521-capability.svg",
+    "source": "https://scp-wiki.wikidot.com/scp-2521",
+    "capabilityLabel": "◼ ◼◼ ◼◼◼",
+    "capabilityStill": "assets/2521-capability-static.svg"
+  }
+]
