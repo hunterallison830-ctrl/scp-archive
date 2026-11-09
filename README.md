@@ -6,7 +6,11 @@ It has three sections:
 
 - **Anomalies (36).** Each containment dossier's card shows a credited community image of that SCP, downloaded and served locally. Inside a dossier, a small **Original artwork** tab holds the archive's own generated plates and the six-second overview film.
 - **Groups of Interest (56).** Every entry in the official [Groups of Interest directory](https://scp-wiki.wikidot.com/groups-of-interest) (51 main + 5 additional). Each dossier quotes the official brief and adds origins and purpose, specialties, and gear and weapons. When the brief documents no gear, the dossier says "Not specified". Contested canon gets a continuity note.
-- **Mobile Task Forces (108).** Every entry on the main [Mobile Task Forces directory](https://scp-wiki.wikidot.com/task-forces): 89 listed units, 17 "Additional MTFs", 1 DTF and 1 STF. Each shows its designation, callsign and insignia, for example Alpha-1 "Red Right Hand". The wiki's longer [complete list](https://scp-wiki.wikidot.com/task-forces-complete-list) is **not** covered. Five units have no insignia on the directory page; they show the shared Foundation emblem with a text overlay.
+- **Mobile Task Forces (1,804).** Two tiers, labelled on every card:
+  - **108 full dossiers**: every entry on the [Mobile Task Forces directory](https://scp-wiki.wikidot.com/task-forces) (89 listed units, 17 "Additional MTFs", 1 DTF, 1 STF), with designation, callsign, insignia, mission, purpose, specialty, documented gear and linked articles. Shown by default.
+  - **1,696 list entries**: every other task-force row of [A Comprehensive List of Mobile Task Forces](https://scp-wiki.wikidot.com/task-forces-complete-list), with its designation as listed, codename, linked pages, one-line scope and the list's verified marker. Only that list was researched for these. Lore, specialty and gear say "not documented" where the row is silent. The list's 90 vehicles and 41 joke task forces are excluded.
+  - The **Coverage** menu switches between full dossiers, one directory list, Comprehensive List entries, or all 1,804. Results are paged 60 at a time. Reused designations link to each other with a note that they come from separate stories and can contradict each other.
+  - Insignia: directory units use their directory insignia. Eleven list entries have a licensed logo from the list's supplement. Every other unit shows the shared Foundation emblem, marked as a placeholder (or "insignia withheld" where a logo exists but has no license entry).
 
 ## Preview
 
@@ -26,7 +30,7 @@ Open http://127.0.0.1:8781. Opening `index.html` directly will not work, because
 | `app.js` | UI rendering, the dossier lifecycle (`openDossier` / `closeDossier`), the media tab and video lifecycle, routing, and `FacilityAudio` (unchanged behaviour, same `raisa-muted` key). |
 | `style.css` | Graphite steel, concrete and white-tile theme. Mobile first, with reduced-motion and forced-colors support. |
 | `data.json` | The 36 original dossiers. **Byte-identical to the pre-overhaul commit.** |
-| `collections.json` | Generated: per-anomaly sourced image and credit, 56 groups, 108 task forces, 196 credit records, and known gaps. |
+| `collections.json` | Generated: per-anomaly sourced image and credit, 56 groups, 1,804 task forces (108 dossiers + 1,696 list entries), credit records, coverage stats (`taskForceStats`) and known gaps. |
 | `credits.html` | Generated: the full image register (author, source page, actual image URL, license, basis, notes), plus text license and design references. |
 | `assets/sourced/` | Resized WebP copies of the sourced images (`scp/`, `goi/`, `mtf/`, `foundation-emblem.webp`). |
 | `assets/*.svg`, `assets/videos/*.mp4` | The archive's original generated plates and films. They appear only under "Original artwork". |

@@ -21,9 +21,14 @@ check(head == (ROOT / 'data.json').read_bytes(), 'data.json differs from ef0bfc1
 check(len(data) == 36, 'anomaly count')
 check(len(coll['anomalyMedia']) == 36 and set(coll['anomalyMedia']) == {d['id'] for d in data}, 'anomaly media coverage')
 check(len(coll['groups']) == 56, 'group count')
-check(len(coll['taskForces']) == 108, 'task force count')
+st = coll['taskForceStats']
+dossiers = [t for t in coll['taskForces'] if t['coverage'] == 'dossier']
+listed = [t for t in coll['taskForces'] if t['coverage'] == 'list']
+check(len(dossiers) == 108, 'directory task force count')
+check(len(listed) == st['listOnly'] and len(coll['taskForces']) == st['total'], 'list task force count')
+check(st['listRows'] == st['total'] + st['excluded']['Vehicles'] + st['excluded']['Joke'], 'every list row accounted for')
 check(len({g['id'] for g in coll['groups']}) == 56, 'unique group ids')
-check(len({t['id'] for t in coll['taskForces']}) == 108, 'unique task force ids')
+check(len({t['id'] for t in coll['taskForces']}) == len(coll['taskForces']), 'unique task force ids')
 
 # 3. every referenced local file exists and every image decodes
 refs = set()
@@ -32,7 +37,10 @@ for d in data:
 for m in coll['anomalyMedia'].values():
     refs.add(m['image'])
 for g in coll['groups']:
-    refs.add(g['image'])
+    if g['image']:
+        refs.add(g['image'])
+    else:
+        check(g['credit'] is None and g['mediaWithheld'], f'withheld logo {g["id"]} is explained')
 for t in coll['taskForces']:
     refs.add(t['insignia'])
 decoded = 0
@@ -49,7 +57,7 @@ videos = [d['overview'] for d in data]
 check(len(set(videos)) == 36 and all((ROOT / v).stat().st_size > 10000 for v in videos), '36 overview videos present')
 
 # 4. every card image has a credit with the required fields; no generated art passed off as sourced
-for key, cid in [(f'scp-{k}', v['credit']) for k, v in coll['anomalyMedia'].items()] + [(g['id'], g['credit']) for g in coll['groups']] + [(t['id'], t['credit']) for t in coll['taskForces']]:
+for key, cid in [(f'scp-{k}', v['credit']) for k, v in coll['anomalyMedia'].items()] + [(g['id'], g['credit']) for g in coll['groups'] if g['image']] + [(t['id'], t['credit']) for t in coll['taskForces']]:
     c = coll['credits'].get(cid)
     check(c is not None, f'no credit for {key}')
     if c:
@@ -74,16 +82,30 @@ for k in coll['anomalyMedia']:
 for g in coll['groups']:
     check(f'id="credit-goi-{g["id"]}"' in ch, f'credits row goi {g["id"]}')
 for t in coll['taskForces']:
-    check(f'id="credit-mtf-{t["id"]}"' in ch, f'credits row mtf {t["id"]}')
+    if t['coverage'] == 'dossier' or t['hasInsignia']:
+        check(f'id="credit-mtf-{t["id"]}"' in ch, f'credits row mtf {t["id"]}')
+    else:
+        check(t['credit'] == 'foundation-emblem', f'placeholder credit {t["id"]}')
+check('id="credit-foundation-emblem"' in ch, 'shared emblem credit row')
+# no unconfirmed licenses published: nothing pending, every non-placeholder image has a per-file or artist basis
+check(all(c['basis'] != 'page-license' for c in coll['credits'].values()), 'a pending (page-license) credit is still published')
+# withheld/unlicensed media is not shipped
+check(not (ROOT / 'assets/sourced/goi/sapphire.webp').exists() and not (ROOT / 'assets/sourced/goi/wilsons-wildlife.webp').exists(), 'withheld group logos removed')
+check(not (ROOT / 'assets/sourced/mtf/nu-3.webp').exists(), 'withheld Nu-3 insignia removed')
+shipped = {p.relative_to(ROOT).as_posix() for p in (ROOT / 'assets/sourced').rglob('*.webp')}
+check(shipped <= refs, f'unreferenced sourced files shipped: {sorted(shipped - refs)[:5]}')
 check('{{' not in ch, 'unfilled template placeholder')
 
 # 7. dossier text fields present (lore, purpose, specialties, gear stance)
 for g in coll['groups']:
     check(g['lore'] and g['purpose'] and g['specialties'], f'group fields {g["id"]}')
-for t in coll['taskForces']:
+for t in listed:
+    check(t['listedAs'] and t['source'].endswith('task-forces-complete-list'), f'list source {t["id"]}')
+    check('mission' not in t and 'gearQuotes' not in t, f'list entry {t["id"]} carries directory-only fields')
+for t in dossiers:
     check(t['mission'] or t['id'] in ('rho-43', 'chi-7', 'chi-9', 'sigma-66-steel-veil', 'sigma-6'), f'mission {t["id"]}')
 
-print(f'refs={len(refs)} images_decoded={decoded} credits={len(coll["credits"])} groups={len(coll["groups"])} taskForces={len(coll["taskForces"])}')
+print(f'refs={len(refs)} images_decoded={decoded} credits={len(coll["credits"])} groups={len(coll["groups"])} taskForces={len(coll["taskForces"])} (dossiers={len(dossiers)} list={len(listed)})')
 print('gaps:', json.dumps(coll['gaps']))
 if fail:
     print('FAIL', len(fail)); [print(' -', x) for x in fail]; sys.exit(1)

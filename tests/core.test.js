@@ -10,10 +10,28 @@ const records = JSON.parse(fs.readFileSync(path.join(root, 'data.json'), 'utf8')
 const coll = JSON.parse(fs.readFileSync(path.join(root, 'collections.json'), 'utf8'));
 const idx = C.buildIndex(records, coll);
 
-test('collection sizes match the two directories and the 36 dossiers', () => {
+test('collection sizes: 36 dossiers, 56 groups, 108 directory task forces + Comprehensive List entries', () => {
   assert.equal(idx.anomalies.length, 36);
   assert.equal(idx.groups.length, 56);
-  assert.equal(idx['task-forces'].length, 108);
+  const st = coll.taskForceStats;
+  assert.equal(idx['task-forces'].length, st.total);
+  assert.equal(st.directory, 108);
+  assert.equal(st.directory + st.listOnly, st.total);
+  assert.equal(st.listRows, st.total - 108 + 108 + st.excluded.Vehicles + st.excluded.Joke, 'every list row is a directory unit, a list entry, or an excluded vehicle/joke row');
+  assert.equal(C.filterEntries(idx['task-forces'], { directory: 'directory' }).length, 108);
+  assert.equal(C.filterEntries(idx['task-forces'], { directory: 'list' }).length, st.listOnly);
+  assert.equal(C.filterEntries(idx['task-forces'], { directory: 'all' }).length, st.total);
+});
+
+test('list entries never claim research they did not get', () => {
+  const list = coll.taskForces.filter(t => t.coverage === 'list');
+  for (const t of list) {
+    assert.ok(t.listedAs && t.source.endsWith('/task-forces-complete-list'), t.id);
+    assert.ok(!('mission' in t) && !('gearQuotes' in t), `${t.id} has no directory-only fields`);
+    if (!t.hasInsignia) assert.equal(t.credit, 'foundation-emblem', `${t.id} placeholder is the shared emblem`);
+    else assert.equal(coll.credits[t.credit].basis, 'license-box', `${t.id} insignia is license-box credited`);
+  }
+  for (const t of coll.taskForces.filter(x => x.coverage === 'dossier')) assert.ok(typeof t.listScope === 'string', `${t.id} matched to its list row`);
 });
 
 test('ids are unique within each section', () => {
@@ -21,19 +39,22 @@ test('ids are unique within each section', () => {
 });
 
 test('every task force has a designation and a callsign; example Alpha-1 "Red Right Hand"', () => {
-  for (const t of coll.taskForces) { assert.ok(t.designation); assert.ok(t.callsign); }
+  for (const t of coll.taskForces) { assert.ok(t.designation); if (t.coverage === 'dossier') assert.ok(t.callsign); }
   const a1 = coll.taskForces.find(t => t.id === 'alpha-1');
   assert.equal(a1.designation, 'Alpha-1'); assert.equal(a1.callsign, 'Red Right Hand');
 });
 
 test('search: number, name, designation and callsign forms', () => {
-  const ids = (s, q) => C.filterEntries(idx[s], { query: q }).map(x => x.id);
+  const ids = (s, q) => C.filterEntries(idx[s], { query: q, ...(s === 'task-forces' ? { directory: 'directory' } : {}) }).map(x => x.id);
+  const all = q => C.filterEntries(idx['task-forces'], { query: q, directory: 'all' }).map(x => x.id);
   assert.deepEqual(ids('anomalies', '173'), ['173']);
   assert.ok(ids('anomalies', 'scp 682').includes('682'));
-  assert.deepEqual(ids('task-forces', 'red right hand'), ['alpha-1']);
-  assert.deepEqual(ids('task-forces', 'Alpha1'), ['alpha-1']);
+  assert.equal(ids('task-forces', 'red right hand')[0], 'alpha-1');
+  assert.equal(ids('task-forces', 'Alpha1')[0], 'alpha-1');
   assert.ok(ids('task-forces', 'nine-tailed fox').includes('epsilon-11'));
   assert.ok(ids('task-forces', 'Rēsh').includes('resh-1'));
+  assert.ok(all('backstreet boys').includes('tf-mtf-alpha-0-backstreet-boys'), 'list entries are searchable under All');
+  assert.ok(all('alpha-9').length > ids('task-forces', 'alpha-9').length, 'reused designations surface under All');
   assert.ok(ids('groups', 'serpent').includes('serpents-hand'));
   assert.ok(ids('groups', 'GOC').includes('global-occult-coalition'));
   assert.equal(ids('groups', 'zzzz-no-match').length, 0);

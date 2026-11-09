@@ -52,7 +52,7 @@
     const taskForces = collections.taskForces.map(t => ({
       section: 'task-forces', id: t.id, record: t, title: t.designation, subtitle: t.callsign,
       tags: [...t.roles, ...(t.pick ? ['Archive picks'] : [])],
-      search: haystack([t.kind, t.designation, t.callsign, `${t.designation} ${t.callsign}`, t.greek, t.specialty, ...t.roles]),
+      search: haystack([t.kind, t.designation, t.listedAs, t.callsign, `${t.designation} ${t.callsign}`, t.greek, t.specialty, t.scope, t.listScope, ...t.roles]),
     }));
     return { anomalies, groups, 'task-forces': taskForces };
   }
@@ -65,6 +65,16 @@
   }
 
   /**
+   * Task-force coverage: 'directory' = full dossiers from the directory page,
+   * 'list' = sparse Comprehensive List entries, 'all' = both; any other value is one directory list.
+   */
+  function matchesCoverage(record, directory) {
+    if (!directory || directory === 'all') return true;
+    if (directory === 'directory') return record.coverage !== 'list';
+    return record.section === directory;
+  }
+
+  /**
    * @param {Array} entries one section's entries
    * @param {{query?:string, tag?:string, greek?:string, directory?:string}} f
    */
@@ -73,7 +83,7 @@
     return entries.filter(e =>
       (tag === 'all' || e.tags.includes(tag)) &&
       (!f.greek || f.greek === 'all' || e.record.greek === f.greek) &&
-      (!f.directory || f.directory === 'all' || e.record.section === f.directory) &&
+      matchesCoverage(e.record, f.directory) &&
       matchesQuery(e, f.query || ''));
   }
 

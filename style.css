@@ -317,3 +317,20 @@ details summary { cursor: pointer; margin: 8px 0; font: 600 12px var(--mono); co
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
 @media (forced-colors: active) { .card, .chip, .media-tab { border: 1px solid CanvasText; } }
+
+/* ---- task-force coverage: sparse list entries, placeholders, paging, withheld logos */
+.coverage-pill { display: inline-block; margin-right: 4px; padding: 1px 6px; border-radius: 3px; font: 600 9.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; background: rgba(255,255,255,.12); }
+.coverage-pill.is-sparse { background: transparent; border: 1px dashed currentColor; opacity: .85; }
+.card-sparse { opacity: .94; }
+.card-sparse .emblem-plate { filter: saturate(.85); }
+.card-sparse .card-title { font-size: .95em; }
+.placeholder-flag { position: absolute; left: 8px; bottom: 8px; z-index: 2; padding: 2px 6px; border-radius: 3px; font: 600 9px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #f3f1ea; background: rgba(20,22,24,.78); }
+.more-button { display: block; margin: 22px auto 0; min-width: 260px; }
+.more-button[hidden] { display: none; }
+.sparse-banner { margin: 0 0 18px; padding: 12px 14px; border: 1px dashed var(--euclid, #c9a227); border-radius: 4px; font-size: .92em; }
+.tag-sparse { border-style: dashed; }
+.plate-withheld { display: flex; align-items: center; justify-content: center; background: repeating-linear-gradient(135deg, #2a2d31 0 12px, #23262a 12px 24px); }
+.withheld-mark { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 14px; border: 1px solid rgba(243,241,234,.5); color: #f3f1ea; font: 700 12px var(--mono); letter-spacing: .12em; text-transform: uppercase; text-align: center; }
+.withheld-mark small { font-weight: 400; font-size: 10px; letter-spacing: .06em; opacity: .8; }
+.emblem-figure.plate-withheld { min-height: 220px; }
+.emblem-overlay.is-withheld::after { content: "INSIGNIA WITHHELD"; }

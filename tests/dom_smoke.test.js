@@ -49,10 +49,16 @@ test('entry, three sections, search, filters, counts', async () => {
   assert.equal(w.location.hash, '#groups');
   assert.equal(d.querySelectorAll('#grid .card').length, 56);
   click(w, d.querySelector('.section-nav [data-section="task-forces"]'));
+  assert.equal(d.querySelectorAll('#grid .card').length, 60, 'first page of the 108 directory dossiers');
+  assert.match(d.querySelector('#result-count').textContent, /^Showing 60 of 108 matching task forces/);
+  assert.equal(d.querySelector('#more').hidden, false);
+  click(w, d.querySelector('#more'));
   assert.equal(d.querySelectorAll('#grid .card').length, 108);
+  assert.equal(d.querySelector('#more').hidden, true);
+  assert.equal(d.querySelectorAll('#grid .card-sparse').length, 0, 'default coverage is full dossiers only');
   assert.equal(d.querySelector('#mtf-selects').hidden, false);
   search.value = 'red right hand'; search.dispatchEvent(new w.Event('input', { bubbles: true }));
-  assert.deepEqual([...d.querySelectorAll('#grid .card')].map(c => c.dataset.id), ['alpha-1']);
+  assert.equal(d.querySelector('#grid .card').dataset.id, 'alpha-1');
   search.value = ''; search.dispatchEvent(new w.Event('input', { bubbles: true }));
   const greek = d.querySelector('#greek'); greek.value = 'Omega'; greek.dispatchEvent(new w.Event('change', { bubbles: true }));
   assert.ok([...d.querySelectorAll('#grid .card-title')].every(t => t.textContent.startsWith('Omega')));
@@ -124,7 +130,7 @@ test('group and task force dossiers have lore, purpose, specialties and gear', a
   assert.ok(dlg.querySelector('a[href="credits.html#credit-goi-serpents-hand"]'));
   w.history.pushState({}, '', '#mtf-alpha-1'); w.dispatchEvent(new w.PopStateEvent('popstate'));
   assert.match(d.querySelector('#dossier-title').textContent, /Alpha-1\s+“Red Right Hand”/);
-  assert.equal(dlg.querySelectorAll('.d-section').length, 5);
+  assert.equal(dlg.querySelectorAll('.d-section').length, 6, 'five directory sections plus the Comprehensive List row');
   w.history.pushState({}, '', '#mtf-lambda-9'); w.dispatchEvent(new w.PopStateEvent('popstate'));
   assert.ok(dlg.querySelector('.emblem-figure.no-insignia .emblem-overlay'));
   assert.match(dlg.querySelector('.gap-note').textContent, /no insignia/);
@@ -150,18 +156,50 @@ test('mute preference persists under the existing raisa-muted key', async () => 
   assert.equal(d.querySelector('#mute').getAttribute('aria-pressed'), w.localStorage.getItem('raisa-muted'));
 });
 
-test('every one of the 200 dossiers renders with a title, an image and a credit link, with unique ids', async () => {
+test('coverage menu: Comprehensive List entries are paged, marked sparse, and honest about gaps', async () => {
+  const { w, d } = boot('#task-forces'); await tick(); click(w, d.querySelector('#enter')); await tick();
+  const c = JSON.parse(fs.readFileSync(path.join(root, 'collections.json'), 'utf8'));
+  const sel = d.querySelector('#directory');
+  assert.deepEqual([...sel.options].map(o => o.value), ['directory', 'main', 'additional', 'distributed', 'special', 'list', 'all']);
+  sel.value = 'list'; sel.dispatchEvent(new w.Event('change', { bubbles: true }));
+  assert.equal(d.querySelectorAll('#grid .card').length, 60);
+  assert.equal(d.querySelectorAll('#grid .card-sparse').length, 60);
+  assert.match(d.querySelector('#result-count').textContent, new RegExp(`of ${c.taskForceStats.listOnly} matching`));
+  sel.value = 'all'; sel.dispatchEvent(new w.Event('change', { bubbles: true }));
+  const search = d.querySelector('#search');
+  search.value = 'alpha-9'; search.dispatchEvent(new w.Event('input', { bubbles: true }));
+  const cards = [...d.querySelectorAll('#grid .card')];
+  assert.ok(cards.some(x => x.dataset.id === 'alpha-9') && cards.some(x => x.classList.contains('card-sparse')), 'reused designation shows dossier and list entries');
+  const sparse = c.taskForces.find(t => t.coverage === 'list' && !t.hasInsignia && t.sharedCount);
+  w.history.pushState({}, '', `#mtf-${sparse.id}`); w.dispatchEvent(new w.PopStateEvent('popstate'));
+  const dlg = d.querySelector('#dossier');
+  assert.ok(dlg.querySelector('.sparse-banner'), 'sparse entries say they are list entries');
+  assert.match(dlg.querySelector('.gap-note').textContent, /placeholder, not this unit/);
+  assert.match(dlg.textContent, /Not documented in the Comprehensive List entry. No loadout is listed./);
+  assert.ok(dlg.querySelector('.continuity a[href^="#mtf-"]'), 'shared designation links');
+  assert.ok(dlg.querySelector('a[href="credits.html#credit-foundation-emblem"]'));
+  const own = c.taskForces.find(t => t.coverage === 'list' && t.hasInsignia);
+  w.history.pushState({}, '', `#mtf-${own.id}`); w.dispatchEvent(new w.PopStateEvent('popstate'));
+  assert.ok(dlg.querySelector(`a[href="credits.html#credit-mtf-${own.id}"]`));
+  assert.equal(dlg.querySelector('.gap-note'), null);
+  w.history.pushState({}, '', '#mtf-nu-3'); w.dispatchEvent(new w.PopStateEvent('popstate'));
+  assert.match(dlg.querySelector('.gap-note').textContent, /withheld/);
+  w.history.pushState({}, '', '#goi-sapphire'); w.dispatchEvent(new w.PopStateEvent('popstate'));
+  assert.ok(dlg.querySelector('.withheld-mark') && !dlg.querySelector('.dossier-media img'), 'withheld logo is not shown');
+});
+
+test('every dossier (anomalies, groups, all task forces) renders with a title, media and a credit line, with unique ids', async () => {
   const { w, d } = boot(); await tick(); click(w, d.querySelector('#enter')); await tick();
   const c = JSON.parse(fs.readFileSync(path.join(root, 'collections.json'), 'utf8'));
   const routes = [...Object.keys(c.anomalyMedia).map(id => `#scp-${id}`), ...c.groups.map(g => `#goi-${g.id}`), ...c.taskForces.map(t => `#mtf-${t.id}`)];
-  assert.equal(routes.length, 200);
+  assert.equal(routes.length, 36 + 56 + c.taskForceStats.total);
   for (const r of routes) {
     w.history.pushState({}, '', r); w.dispatchEvent(new w.PopStateEvent('popstate'));
     const dlg = d.querySelector('#dossier');
     assert.ok(dlg.hasAttribute('open'), r);
     assert.ok(d.querySelector('#dossier-title').textContent.trim().length > 2, r);
-    assert.ok(dlg.querySelector('.dossier-media img'), r);
-    assert.ok(dlg.querySelector('a[href^="credits.html#credit-"]'), r);
+    assert.ok(dlg.querySelector('.dossier-media img') || dlg.querySelector('.dossier-media .withheld-mark'), r);
+    assert.ok(dlg.querySelector('a[href^="credits.html#credit-"]') || /Withheld/.test(dlg.querySelector('.credit-line').textContent), r);
     const ids = [...d.querySelectorAll('[id]')].map(x => x.id);
     assert.equal(new Set(ids).size, ids.length, `duplicate id in ${r}`);
     assert.ok(!/undefined|\[object Object\]|null/.test(dlg.textContent.replace(/nullif/gi, '')), `stray value in ${r}`);

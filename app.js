@@ -4,17 +4,20 @@ const { SECTIONS, SECTION_KEYS, OBJECT_CLASSES, escapeHTML: e, buildIndex, filte
 const $ = s => document.querySelector(s);
 
 const GOI_CATEGORIES = ['Foundation Precursors', 'Government', 'Corporate', 'Religious', 'Educational', 'Research', 'Artistic', 'Media', 'Online', 'Non-Profit', 'Criminal', 'Insurgents', 'Alternate Realities', 'Other', 'International'];
-const MTF_ROLES = ['Combat & rapid response', 'Command & oversight', 'Undercover & intelligence', 'GoI counter-operations', 'Mind, memetic & info hazards', 'Occult & reality', 'Environment specialists', 'Bio & physical hazards', 'General containment'];
-const DIRECTORY_SECTIONS = { main: 'Main directory', additional: 'Additional MTFs', distributed: 'Distributed Task Force', special: 'Special Task Force' };
+const MTF_ROLES = ['Combat & rapid response', 'Command & oversight', 'Undercover & intelligence', 'GoI counter-operations', 'Mind, memetic & info hazards', 'Occult & reality', 'Environment specialists', 'Bio & physical hazards', 'General containment', 'Undocumented'];
+const DIRECTORY_SECTIONS = { main: 'Main directory', additional: 'Additional MTFs', distributed: 'Distributed Task Force', special: 'Special Task Force', list: 'Comprehensive List only' };
+const PAGE = 60; // cards rendered per page; the task-force roster is long
+const tfLabel = t => `${t.kind ? `${t.kind} ` : ''}${t.designation}`;
 const SECTION_COPY = {
   anomalies: { eyebrow: 'Containment records', heading: 'Anomalies', lede: 'Thirty-six containment dossiers. Every card shows a credited community image of that SCP. Open a dossier to read it, or switch to the original artwork tab.' },
   groups: { eyebrow: 'Intelligence division', heading: 'Groups of Interest', lede: 'Every organisation in the official Groups of Interest directory, from the Global Occult Coalition to the Serpent\u2019s Hand. Each dossier covers lore, origins and purpose, specialties, and documented gear.' },
-  'task-forces': { eyebrow: 'Operations directory', heading: 'Mobile Task Forces', lede: 'Every unit on the official Mobile Task Forces directory page, with its designation, callsign and insignia, from Alpha-1 \u201cRed Right Hand\u201d onward.' },
+  'task-forces': { eyebrow: 'Operations directory', heading: 'Mobile Task Forces', lede: 'Full dossiers for every unit on the official Mobile Task Forces directory, from Alpha-1 \u201cRed Right Hand\u201d onward. Switch coverage to browse every other task force on the wiki\u2019s Comprehensive List as a shorter list entry.' },
 };
 
 const state = {
   index: null, collections: null, entered: false, section: 'anomalies', open: null, returnFocus: null,
-  filters: { anomalies: { query: '', tag: 'all' }, groups: { query: '', tag: 'all' }, 'task-forces': { query: '', tag: 'all', greek: 'all', directory: 'all' } },
+  filters: { anomalies: { query: '', tag: 'all' }, groups: { query: '', tag: 'all' }, 'task-forces': { query: '', tag: 'all', greek: 'all', directory: 'directory' } },
+  limit: PAGE,
 };
 
 /* ---------------------------------------------------------------- audio */
@@ -69,6 +72,8 @@ const linkOut = (href, label) => `<a href="${e(href)}" target="_blank" rel="noop
 const shortLicense = l => l.replace(' (page license)', '');
 
 function creditLine(cid, anchor) {
+  if (!cid) return '<p class="credit-line"><span class="credit-k">Image</span> Withheld: no license entry was found for this logo.</p>';
+  if (cid === 'foundation-emblem') anchor = 'credit-foundation-emblem';
   const c = credits(cid);
   return `<p class="credit-line"><span class="credit-k">Image</span> ${e(c.author)} · ${e(shortLicense(c.license))} · ${linkOut(c.page, 'Source')} · <a href="credits.html#${e(anchor)}">Full credit</a></p>`;
 }
@@ -87,13 +92,15 @@ function cardHTML(entry, i) {
   if (entry.section === 'groups') {
     const g = entry.record;
     return `<li><button class="card card-emblem card-group" data-section="groups" data-id="${e(g.id)}" aria-label="Open ${e(g.name)} dossier">
-      <span class="emblem-plate plate-${e(g.plate)}"><img src="${e(g.image)}" alt="" width="${g.w}" height="${g.h}" ${lazy} decoding="async"></span>
+      <span class="emblem-plate plate-${e(g.plate)}">${g.image ? `<img src="${e(g.image)}" alt="" width="${g.w}" height="${g.h}" ${lazy} decoding="async">` : '<span class="withheld-mark">Logo withheld<small>license unconfirmed</small></span>'}</span>
       <span class="card-foot"><span class="card-kicker">${e(g.categories[0])}${g.featured ? ' · Featured' : ''}</span><span class="card-title">${e(g.name)}</span></span></button></li>`;
   }
-  const t = entry.record;
-  return `<li><button class="card card-emblem card-mtf${t.hasInsignia ? '' : ' no-insignia'}" data-section="task-forces" data-id="${e(t.id)}" aria-label="Open ${e(t.kind)} ${e(t.designation)} “${e(t.callsign)}” dossier">
-    <span class="emblem-plate plate-${e(t.plate)}">${t.hasInsignia ? '' : `<span class="emblem-overlay" aria-hidden="true">${e(t.designation)}</span>`}<img src="${e(t.insignia)}" alt="" width="480" height="480" ${lazy} decoding="async"></span>
-    <span class="card-foot"><span class="card-kicker">${e(t.kind)} · ${e(t.greek)}${t.section !== 'main' ? ` · ${e(DIRECTORY_SECTIONS[t.section])}` : ''}</span><span class="card-title mono">${e(t.designation)}</span><span class="card-callsign">“${e(t.callsign)}”</span></span></button></li>`;
+  const t = entry.record, sparse = t.coverage === 'list';
+  const overlay = t.hasInsignia ? '' : `<span class="emblem-overlay${t.insigniaStatus === 'withheld' ? ' is-withheld' : ''}" aria-hidden="true">${e(t.designation)}</span><span class="placeholder-flag" aria-hidden="true">Shared emblem</span>`;
+  const where = sparse ? 'List entry' : t.section !== 'main' ? DIRECTORY_SECTIONS[t.section] : 'Full dossier';
+  return `<li><button class="card card-emblem card-mtf${t.hasInsignia ? '' : ' no-insignia'}${sparse ? ' card-sparse' : ''}" data-section="task-forces" data-id="${e(t.id)}" aria-label="Open ${e(tfLabel(t))}${t.callsign ? ` “${e(t.callsign)}”` : ''}, ${sparse ? 'Comprehensive List entry' : 'full dossier'}">
+    <span class="emblem-plate plate-${e(t.plate)}">${overlay}<img src="${e(t.insignia)}" alt="" width="480" height="480" ${lazy} decoding="async"></span>
+    <span class="card-foot"><span class="card-kicker"><span class="coverage-pill${sparse ? ' is-sparse' : ''}">${e(where)}</span> ${e(t.kind || 'Listed')} · ${e(t.greek)}</span><span class="card-title mono">${e(t.designation)}</span><span class="card-callsign">${t.callsign ? `“${e(t.callsign)}”` : '<i>No codename listed</i>'}</span></span></button></li>`;
 }
 
 /* ---------------------------------------------------------------- toolbar */
@@ -119,16 +126,27 @@ function renderToolbar() {
     $('#greek').value = f.greek;
     const dirCounts = new Map();
     list.forEach(x => dirCounts.set(x.record.section, (dirCounts.get(x.record.section) || 0) + 1));
-    $('#directory').innerHTML = `<option value="all">Whole directory (${list.length})</option>` + Object.entries(DIRECTORY_SECTIONS).map(([k, l]) => `<option value="${k}">${e(l)} (${dirCounts.get(k) || 0})</option>`).join('');
+    const dossiers = list.length - (dirCounts.get('list') || 0);
+    $('#directory').innerHTML = `<option value="directory">Full dossiers — directory (${dossiers})</option>`
+      + Object.entries(DIRECTORY_SECTIONS).filter(([k]) => k !== 'list').map(([k, l]) => `<option value="${k}">\u2003${e(l)} (${dirCounts.get(k) || 0})</option>`).join('')
+      + `<option value="list">Comprehensive List entries only (${dirCounts.get('list') || 0})</option><option value="all">All task forces (${list.length})</option>`;
     $('#directory').value = f.directory;
   }
 }
 
-function renderGrid() {
+function renderGrid({ keepLimit = false } = {}) {
   const s = state.section, results = filterEntries(state.index[s], state.filters[s]);
+  if (!keepLimit) state.limit = PAGE;
+  const shown = results.slice(0, state.limit);
   $('#grid').className = `grid grid-${s}`;
-  $('#grid').innerHTML = results.map(cardHTML).join('');
-  $('#result-count').textContent = `${count(results.length, SECTIONS[s].noun)} shown of ${state.index[s].length}`;
+  $('#grid').innerHTML = shown.map(cardHTML).join('');
+  const total = state.index[s].length;
+  $('#result-count').textContent = shown.length < results.length
+    ? `Showing ${shown.length} of ${count(results.length, `matching ${SECTIONS[s].noun}`)} · ${total} in the archive`
+    : `${count(results.length, SECTIONS[s].noun)} shown of ${total}`;
+  const more = $('#more');
+  more.hidden = shown.length >= results.length;
+  more.textContent = `Show ${Math.min(PAGE, results.length - shown.length)} more (${results.length - shown.length} remaining)`;
   $('#empty').hidden = results.length > 0;
   document.querySelectorAll('#chips .chip').forEach(b => { const on = b.dataset.tag === state.filters[s].tag; b.classList.toggle('active', on); b.setAttribute('aria-pressed', String(on)); });
 }
@@ -197,7 +215,7 @@ function gearBlock(summary, quotes, emptyText) {
 
 function groupDossier(g) {
   const fa = g.firstAppearance;
-  const media = `<figure class="emblem-figure plate-${e(g.plate)}"><img src="${e(g.image)}" alt="Emblem of ${e(g.name)}" width="${g.w}" height="${g.h}"></figure>${creditLine(g.credit, `credit-goi-${g.id}`)}
+  const media = `${g.image ? `<figure class="emblem-figure plate-${e(g.plate)}"><img src="${e(g.image)}" alt="Emblem of ${e(g.name)}" width="${g.w}" height="${g.h}"></figure>` : `<figure class="emblem-figure plate-withheld"><span class="withheld-mark">Logo withheld<small>license unconfirmed</small></span></figure><p class="gap-note">${e(g.mediaWithheld)}</p>`}${creditLine(g.credit, `credit-goi-${g.id}`)}
     <dl class="facts"><dt>Directory</dt><dd>${g.section === 'main' ? 'Main list' : 'Additional Groups of Interest'}</dd>
     <dt>Categories</dt><dd>${g.categories.map(e).join(', ')}</dd>
     ${fa ? `<dt>First wiki appearance</dt><dd>${e([fa.date, fa.year].filter(Boolean).join(' '))}${fa.by ? ` · by ${e(fa.by)}` : ''}</dd>` : ''}
@@ -212,9 +230,9 @@ function groupDossier(g) {
 }
 
 function mtfDossier(t) {
-  const media = `<figure class="emblem-figure plate-${e(t.plate)}${t.hasInsignia ? '' : ' no-insignia'}">${t.hasInsignia ? '' : `<span class="emblem-overlay" aria-hidden="true">${e(t.designation)}</span>`}<img src="${e(t.insignia)}" alt="${t.hasInsignia ? `Insignia of ${e(t.kind)} ${e(t.designation)}` : 'Shared Foundation emblem (no unit insignia on the directory)'}" width="480" height="480"></figure>
-    ${t.hasInsignia ? '' : '<p class="gap-note">This unit has no insignia on the directory page, so the shared Foundation emblem is shown instead.</p>'}
-    ${creditLine(t.credit, t.hasInsignia ? `credit-mtf-${t.id}` : `credit-mtf-${t.id}`)}
+  const media = `<figure class="emblem-figure plate-${e(t.plate)}${t.hasInsignia ? '' : ' no-insignia'}">${t.hasInsignia ? '' : `<span class="emblem-overlay${t.insigniaStatus === 'withheld' ? ' is-withheld' : ''}" aria-hidden="true">${e(t.designation)}</span>`}<img src="${e(t.insignia)}" alt="${t.hasInsignia ? `Insignia of ${e(t.kind)} ${e(t.designation)}` : 'Shared Foundation emblem (no unit insignia on the directory)'}" width="480" height="480"></figure>
+    ${t.hasInsignia ? '' : `<p class="gap-note">${t.insigniaStatus === 'withheld' ? 'The directory shows an insignia for this unit, but no license entry was found for it, so it is withheld. The shared Foundation emblem is a placeholder, not this unit\u2019s insignia.' : 'This unit has no insignia on the directory page, so the shared Foundation emblem is shown as a placeholder.'}</p>`}
+    ${creditLine(t.credit, `credit-mtf-${t.id}`)}
     <dl class="facts"><dt>Designation</dt><dd class="mono">${e(t.kind)} ${e(t.designation)}</dd><dt>Callsign</dt><dd>“${e(t.callsign)}”</dd>
     <dt>Directory</dt><dd>${e(DIRECTORY_SECTIONS[t.section])}</dd><dt>Role grouping</dt><dd>${t.roles.map(e).join(', ')} <span class="muted">(editorial)</span></dd></dl>`;
   const lore = t.mission ? `<blockquote class="lore"><p>${e(t.mission)}</p></blockquote><p class="fine">Mission statement quoted from the ${linkOut(t.missionSource, 'Mobile Task Forces directory')} (SCP Wiki community, CC BY-SA 3.0).</p>`
@@ -224,9 +242,43 @@ function mtfDossier(t) {
     + section('02', 'Purpose', t.purpose ? `<p>${e(t.purpose)}</p>` : '<p class="not-specified">Not stated in the directory entry.</p>')
     + section('03', 'Specialty', t.specialty ? `<p>Specializes in ${e(t.specialty)}.</p>` : '<p class="not-specified">Not stated in the directory entry.</p>')
     + section('04', 'Gear & weapons', gearBlock(gearSummary, t.gearQuotes, 'Not specified in the directory entry. No canonical loadout is listed.') + linkList(t.utilizing, 'Objects utilized'))
-    + section('05', 'Documented in', (linkList(t.deployments, 'Known deployments') + linkList(t.assisting, 'Assisting in containment of') + linkList(t.reports, 'Action reports')) || '<p class="not-specified">No linked articles.</p>');
+    + section('05', 'Documented in', (linkList(t.deployments, 'Known deployments') + linkList(t.assisting, 'Assisting in containment of') + linkList(t.reports, 'Action reports')) || '<p class="not-specified">No linked articles.</p>')
+    + (t.listScope ? section('06', 'Comprehensive List entry', `<blockquote class="lore"><p>${e(t.listScope)}</p></blockquote><p class="fine">${t.listVerified ? 'Marked verified (•) on' : 'Not marked verified on'} ${linkOut(COMPLETE_LIST, 'A Comprehensive List of Mobile Task Forces')}.</p>`) : '')
+    + sharedBlock(t);
   return dossierShell({ kind: 'mtf', eyebrow: `${e(t.kind)} · operations file`, title: `<span class="mono">${e(t.designation)}</span> <span class="callsign">“${e(t.callsign)}”</span>`,
     badges: `${t.pick ? '<span class="tag tag-hazard">Archive pick</span>' : ''}<span class="tag">${e(DIRECTORY_SECTIONS[t.section])}</span>`, media, body });
+}
+
+const COMPLETE_LIST = 'https://scp-wiki.wikidot.com/task-forces-complete-list';
+
+function sharedBlock(t) {
+  if (!t.sharedCount) return '';
+  const items = t.sharedDesignation.map(o => `<li><a href="${hashFor('task-forces', o.id)}">${e(o.label)}</a></li>`).join('');
+  const more = t.sharedCount > t.sharedDesignation.length ? `<li class="muted">and ${t.sharedCount - t.sharedDesignation.length} more</li>` : '';
+  return `<aside class="continuity" role="note"><strong>Designation shared with ${t.sharedCount} other ${t.sharedCount === 1 ? 'entry' : 'entries'}</strong>
+    <p>Writers reuse task-force numbers across separate stories, so these are different units and their details can contradict each other. The Comprehensive List says it is a writers\u2019 tool, not a canonical record.</p><ul class="link-chips">${items}${more}</ul></aside>`;
+}
+
+function listDossier(t) {
+  const placeholder = t.insigniaStatus === 'withheld'
+    ? 'A logo for this unit appears on the list\u2019s logo supplement, but it has no license entry, so it is withheld. The shared Foundation emblem is a placeholder, not this unit\u2019s insignia.'
+    : 'No insignia is listed for this unit. The shared Foundation emblem is a placeholder, not this unit\u2019s insignia.';
+  const media = `<figure class="emblem-figure plate-${e(t.plate)}${t.hasInsignia ? '' : ' no-insignia'}">${t.hasInsignia ? '' : `<span class="emblem-overlay${t.insigniaStatus === 'withheld' ? ' is-withheld' : ''}" aria-hidden="true">${e(t.designation)}</span>`}<img src="${e(t.insignia)}" alt="${t.hasInsignia ? `Insignia of ${e(tfLabel(t))}` : 'Shared Foundation emblem placeholder'}" width="480" height="480"></figure>
+    ${t.hasInsignia ? '' : `<p class="gap-note">${placeholder}</p>`}
+    ${creditLine(t.credit, `credit-mtf-${t.id}`)}
+    <dl class="facts"><dt>Listed as</dt><dd class="mono">${e(t.listedAs)}</dd><dt>Codename</dt><dd>${t.callsign ? `“${e(t.callsign)}”` : 'None listed'}${t.aliasNote ? ' <span class="muted">(several names listed)</span>' : ''}</dd>
+    <dt>List section</dt><dd>${e(t.listGroup)}</dd><dt>Verification</dt><dd>${t.verified ? 'Marked verified (•) by the list\u2019s curators' : 'Not marked verified'}</dd>
+    <dt>Role grouping</dt><dd>${t.roles.map(e).join(', ')} <span class="muted">(editorial, from the scope line)</span></dd></dl>`;
+  const nd = '<p class="not-specified">Not documented in the Comprehensive List entry.</p>';
+  const body = `<p class="sparse-banner" role="note"><strong>List entry, not a full dossier.</strong> Everything here comes from one row of ${linkOut(COMPLETE_LIST, 'A Comprehensive List of Mobile Task Forces')}. The linked pages were not researched for this archive; open them for the unit\u2019s story.</p>`
+    + section('01', 'Scope — Comprehensive List summary', t.scope ? `<blockquote class="lore"><p>${e(t.scope)}</p></blockquote><p class="fine">Quoted from the list (SCP Wiki community, CC BY-SA 3.0).</p>` : '<p class="not-specified">The list gives no description for this unit.</p>')
+    + section('02', 'Lore & purpose', t.scope ? '<p class="not-specified">No more than the scope line above is documented in the list entry.</p>' : nd)
+    + section('03', 'Specialty', t.specialty ? `<p>Specializes in ${e(t.specialty)}.</p>` : nd)
+    + section('04', 'Gear & weapons', '<p class="not-specified">Not documented in the Comprehensive List entry. No loadout is listed.</p>')
+    + section('05', 'Appears in', t.pages.length ? linkList(t.pages, 'Pages listed') : `<p class="not-specified">${t.pagesText ? e(t.pagesText) : 'No pages listed.'}</p>`)
+    + sharedBlock(t);
+  return dossierShell({ kind: 'mtf mtf-sparse', eyebrow: `${e(t.kind || 'Task force')} · Comprehensive List entry`, title: `<span class="mono">${e(t.designation)}</span>${t.callsign ? ` <span class="callsign">“${e(t.callsign)}”</span>` : ''}`,
+    badges: `<span class="tag tag-sparse">List entry</span>${t.verified ? '<span class="tag">Verified on list</span>' : '<span class="tag">Unverified</span>'}`, media, body });
 }
 
 /* Video and tab lifecycle: the film element only receives a src while its tab is visible. */
@@ -257,14 +309,14 @@ function openDossier(section, id, { updateHash = true, opener = null } = {}) {
   if (!dialog.open) state.returnFocus = opener || document.activeElement;
   if (state.section !== section) renderSection(section);
   const r = entry.record;
-  dialog.innerHTML = section === 'anomalies' ? anomalyDossier(r, entry.media) : section === 'groups' ? groupDossier(r) : mtfDossier(r);
+  dialog.innerHTML = section === 'anomalies' ? anomalyDossier(r, entry.media) : section === 'groups' ? groupDossier(r) : r.coverage === 'list' ? listDossier(r) : mtfDossier(r);
   dialog.scrollTop = 0;
   state.open = { section, id };
   if (!dialog.open) dialog.showModal();
   document.documentElement.classList.add('modal-open');
   audio.effect('file');
   if (updateHash) history.pushState({ section, id }, '', hashFor(section, id));
-  document.title = `${entry.title}${entry.section === 'task-forces' ? ` “${r.callsign}”` : ''} · RAISA Archive`;
+  document.title = `${entry.title}${entry.section === 'task-forces' && r.callsign ? ` “${r.callsign}”` : ''} · RAISA Archive`;
   $('#dossier-title').focus({ preventScroll: true });
   return true;
 }
@@ -322,7 +374,12 @@ function bind() {
   $('#chips').addEventListener('click', ev => { const b = ev.target.closest('[data-tag]'); if (!b) return; state.filters[state.section].tag = b.dataset.tag; audio.effect('filter'); renderGrid(); });
   $('#greek').addEventListener('change', ev => { state.filters['task-forces'].greek = ev.target.value; renderGrid(); });
   $('#directory').addEventListener('change', ev => { state.filters['task-forces'].directory = ev.target.value; renderGrid(); });
-  $('#reset').addEventListener('click', () => { Object.assign(state.filters[state.section], { query: '', tag: 'all', ...(state.section === 'task-forces' ? { greek: 'all', directory: 'all' } : {}) }); renderToolbar(); renderGrid(); $('#search').focus(); });
+  $('#reset').addEventListener('click', () => { Object.assign(state.filters[state.section], { query: '', tag: 'all', ...(state.section === 'task-forces' ? { greek: 'all', directory: 'directory' } : {}) }); renderToolbar(); renderGrid(); $('#search').focus(); });
+  $('#more').addEventListener('click', () => {
+    const before = state.limit;
+    state.limit += PAGE; renderGrid({ keepLimit: true });
+    const next = document.querySelectorAll('#grid .card')[before]; if (next) next.focus();
+  });
   $('#grid').addEventListener('click', ev => { const c = ev.target.closest('.card'); if (c) openDossier(c.dataset.section, c.dataset.id, { opener: c }); });
   const dialog = $('#dossier');
   dialog.addEventListener('click', ev => {
@@ -346,6 +403,8 @@ function bind() {
 
 function fillHeroCounts() {
   SECTION_KEYS.forEach(k => { document.querySelectorAll(`[data-count="${k}"]`).forEach(n => { n.textContent = String(state.index[k].length); }); });
+  const dossiers = state.index['task-forces'].filter(x => x.record.coverage !== 'list').length;
+  document.querySelectorAll('[data-count="task-forces-dossiers"]').forEach(n => { n.textContent = String(dossiers); });
 }
 
 async function load() {

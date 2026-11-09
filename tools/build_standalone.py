@@ -25,14 +25,17 @@ def data_url(rel):
     return cache[rel]
 
 
-def inline_paths(node):
+def collect_paths(node, out):
+    """Every local asset path referenced by the JSON (embedded once each, resolved at runtime)."""
     if isinstance(node, dict):
-        return {k: inline_paths(v) for k, v in node.items()}
-    if isinstance(node, list):
-        return [inline_paths(v) for v in node]
-    if isinstance(node, str) and node.startswith('assets/') and (ROOT / node).is_file():
-        return data_url(node)
-    return node
+        for v in node.values():
+            collect_paths(v, out)
+    elif isinstance(node, list):
+        for v in node:
+            collect_paths(v, out)
+    elif isinstance(node, str) and node.startswith('assets/') and (ROOT / node).is_file():
+        out.add(node)
+    return out
 
 
 def script_safe(text):
@@ -40,14 +43,19 @@ def script_safe(text):
 
 
 def main():
-    records = inline_paths(json.loads((ROOT / 'data.json').read_text()))
-    collections = inline_paths(json.loads((ROOT / 'collections.json').read_text()))
+    records = json.loads((ROOT / 'data.json').read_text())
+    collections = json.loads((ROOT / 'collections.json').read_text())
+    paths = sorted(collect_paths(collections, collect_paths(records, set())))
+    assets = {p: data_url(p) for p in paths}
     html = (ROOT / 'index.html').read_text()
     html = re.sub(r'(src|href)="(assets/[^"]+)"', lambda m: f'{m.group(1)}="{data_url(m.group(2))}"', html)
-    shim = ('<script>/* offline preview: serve the two JSON files from memory */\n'
+    shim = ('<script>/* offline preview: serve the two JSON files from memory; asset paths resolve to embedded data URLs */\n'
+            f'window.__RAISA_ASSETS__={script_safe(json.dumps(assets))};\n'
             f'window.__RAISA_EMBED__={{"data.json":{script_safe(json.dumps(records))},"collections.json":{script_safe(json.dumps(collections))}}};\n'
-            '(function(){const real=window.fetch&&window.fetch.bind(window);window.fetch=function(u,o){const k=String(u).split("/").pop();'
-            'if(Object.prototype.hasOwnProperty.call(window.__RAISA_EMBED__,k)){return Promise.resolve(new Response(JSON.stringify(window.__RAISA_EMBED__[k]),{status:200,headers:{"Content-Type":"application/json"}}));}'
+            '(function(){const A=window.__RAISA_ASSETS__;'
+            'const res=v=>typeof v==="string"?(Object.prototype.hasOwnProperty.call(A,v)?A[v]:v):Array.isArray(v)?v.map(res):v&&typeof v==="object"?Object.fromEntries(Object.entries(v).map(([k,x])=>[k,res(x)])):v;'
+            'const real=window.fetch&&window.fetch.bind(window);window.fetch=function(u,o){const k=String(u).split("/").pop();'
+            'if(Object.prototype.hasOwnProperty.call(window.__RAISA_EMBED__,k)){const body=res(window.__RAISA_EMBED__[k]);return Promise.resolve({ok:true,status:200,json:()=>Promise.resolve(body)});}'
             'return real?real(u,o):Promise.reject(new Error("offline"));};'
             '/* some engines refuse history updates on file:// pages; keep the app working and just skip the URL update */'
             '["pushState","replaceState"].forEach(function(n){const f=history[n].bind(history);history[n]=function(){try{return f.apply(null,arguments);}catch(e){if(e&&e.name==="SecurityError")return;throw e;}};});'

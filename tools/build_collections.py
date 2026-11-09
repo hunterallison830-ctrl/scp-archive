@@ -10,7 +10,7 @@ Outputs, all inside this repository:
   credits.html                         - full static attribution register
 data.json is never written: the 36 dossiers stay byte-identical.
 """
-import html, json, os, re, sys
+import difflib, html, json, os, re, sys, unicodedata
 from pathlib import Path
 from PIL import Image, ImageSequence
 
@@ -164,6 +164,16 @@ GOI_UPGRADES = {  # anchor -> (file in dl/goi_hi, credit builder)
 }
 
 
+# Directory logos with no license-box entry anywhere we could find.
+GOI_SUBJECT_MATCH = {
+    'vikander-kneed': ('VKlogotransparent', 'Matched by subject: the hub license box lists "VKlogotransparent" (the Vikander-Kneed logo) by Grigori Karpin, CC BY 3.0, note "created by me". This is the directory copy of that logo (vikander-kneed-1.png); the hub file itself no longer resolves, so the two were not compared byte-for-byte.'),
+}
+GOI_WITHHELD = {
+    'sapphire': 'The directory logo has no license-box entry on the directory or the SAPHIR Centre hub, so it is withheld rather than published without a confirmed license.',
+    'wilsons-wildlife': "The directory logo has no license-box entry on the directory, and the Wilson's Wildlife Solutions hub has no license box, so it is withheld rather than published without a confirmed license.",
+}
+
+
 def gear_sentences(text):
     pat = re.compile(r'\b(weapon\w*|armed|equipped|eigenmech\w*|technolog\w*|augment\w*|prosthe\w*|artifact\w*|paratechnolog\w*|Maps of the Multiverse|thaumaturg\w*)', re.I)
     return [s.strip() for s in re.split(r'(?<=[.!?])\s+', text) if pat.search(s)][:3]
@@ -212,20 +222,32 @@ def build_groups(credits, meta):
             src = RES / o['local_raw']
             if o.get('credit'):
                 credits[cid] = wiki_credit(o['credit'], GOI_DIR, o['image'], title=o['credit'].get('Filename'))
+            elif a in GOI_SUBJECT_MATCH:
+                fn, note = GOI_SUBJECT_MATCH[a]
+                e = next(x for x in o['hub_credits'] if x['Filename'] == fn)
+                credits[cid] = wiki_credit(e, o['hub'], o['image'], title=o['image'].rsplit('/', 1)[-1], note=note)
+            elif a in GOI_WITHHELD:
+                src = None
+                gaps.append(a)
             else:
                 credits[cid] = dict(title=o['image'].rsplit('/', 1)[-1], author='Not listed in the directory or hub license box', page=GOI_DIR,
                                     url=o['image'], license='CC BY-SA 3.0 (page license)', licenseUrl=LIC['CC BY-SA 3.0'], basis='page-license',
                                     note='PENDING: directory logo with no license-box entry on the directory or the group hub. Credited to the hosting page only; author not confirmed.', modified=MODIFIED)
                 gaps.append(a)
-        w, h = to_webp(src, ROOT / rel, 720)
-        credits[cid]['subject'] = o['name']
+        if src is None:
+            (ROOT / rel).unlink(missing_ok=True)
+            rel, w, h, cid = None, None, None, None
+        else:
+            w, h = to_webp(src, ROOT / rel, 720)
+            credits[cid]['subject'] = o['name']
         paras = [clean_text(x) for x in o['paras']]
         text = '\n\n'.join(paras)
         f = fa.get(re.sub(r'\s*\(.*\)$', '', o['name'])) or fa.get(o['name']) or fa.get(re.sub(r'^The ', '', o['name']))
         out.append(dict(
             id=a, name=o['name'], order=idx, section='additional' if a in ('asci', 'british-occult-service', 'joicl', 'obskura', 'pentagram') else 'main',
             categories=cat_of.get(a, ['Other']), featured=a in FEATURED, international=o['international'],
-            image=rel, w=w, h=h, fit='contain', plate=plate_for(rel), credit=cid,
+            image=rel, w=w, h=h, fit='contain', plate=plate_for(rel) if rel else 'withheld', credit=cid,
+            mediaWithheld=(GOI_WITHHELD[a] if rel is None else None),
             lore=paras, loreSource=GOI_DIR + '#' + a, hub=o['hub'],
             purpose=c['purpose'], specialties=c['specialties'], gear=c['gear'],
             gearQuotes=gear_sentences(text), continuity=c.get('continuity'),
@@ -267,7 +289,8 @@ def clean_text(t):
     return re.sub(r'\s{2,}', ' ', t).strip()
 
 
-MTF_COMPLETE_LICBOX = 'https://scp-wiki.wikidot.com/fragment:task-forces-complete-list-licensebox'
+MTF_COMPLETE = WIKI + '/task-forces-complete-list'
+MTF_COMPLETE_LICBOX = MTF_COMPLETE  # its license box is included on the page itself
 # Insignia missing from the directory license box but listed in the license box of
 # "A Comprehensive List of Mobile Task Forces" (fragment above) and captioned "Logo by ..."
 # on its image supplement (fragment:task-forces-complete-list-supplement).
@@ -277,6 +300,9 @@ COMPLETE_LIST_CREDITS = {
     'Pi-1': ('SunnyClockwork', 'http://scp-wiki.wikidot.com/sunny-art-tales',
              'Comprehensive List license box: MTF Pi-1 ("City Slickers") by SunnyClockwork, CC BY-SA 3.0. Its supplement shows this same file (task-forces/Pi1.png) captioned "Logo by SunnyClockwork".'),
 }
+
+
+MTF_WITHHELD = {'Nu-3'}  # insignia on the directory with no license entry anywhere we could find
 
 
 def build_mtf(credits, meta):
@@ -308,7 +334,7 @@ def build_mtf(credits, meta):
             links.setdefault(key, [])
             links[key] += [dict(href=WIKI + h if h.startswith('/') else h, label=l) for h, l in v['links']]
         cid = f'mtf-{sid}'
-        insignia, has_insignia = emblem, True
+        insignia, has_insignia, withheld = emblem, True, False
         if o.get('local_raw'):
             rel = f'assets/sourced/mtf/{sid}.webp'
             to_webp(RES / o['local_raw'], ROOT / rel, 520)
@@ -326,13 +352,20 @@ def build_mtf(credits, meta):
                     cr = dict(title=o['image'].rsplit('/', 1)[-1], author=author, page=MTF_COMPLETE_LICBOX, url=o['image'],
                               license='CC BY-SA 3.0', licenseUrl=LIC['CC BY-SA 3.0'], basis='license-box', note=note,
                               modified=MODIFIED, listedSource=src)
+                elif d in MTF_WITHHELD:
+                    cr = None
                 else:
                     cr = dict(title=o['image'].rsplit('/', 1)[-1], author='Not listed in the directory license box', page=MTF_DIR, url=o['image'],
                               license='CC BY-SA 3.0 (page license)', licenseUrl=LIC['CC BY-SA 3.0'], basis='page-license',
                               note='PENDING: insignia shown on the directory with no entry in the directory license box or the Comprehensive List license box; author not confirmed.', modified=MODIFIED)
                     gaps.append(dict(id=sid, gap='insignia credit not in license box'))
-            cr['subject'] = f'{o["kind"]} {d} "{o["callsign"]}"'
-            credits[cid] = cr
+            if cr is None:
+                (ROOT / rel).unlink(missing_ok=True)
+                insignia, has_insignia, cid, withheld = emblem, False, 'foundation-emblem', True
+                gaps.append(dict(id=sid, gap='insignia withheld: no license entry found; shared Foundation emblem shown'))
+            else:
+                cr['subject'] = f'{o["kind"]} {d} "{o["callsign"]}"'
+                credits[cid] = cr
         else:
             has_insignia = False
             cid = 'foundation-emblem'
@@ -351,11 +384,127 @@ def build_mtf(credits, meta):
             id=sid, designation=d, callsign=o['callsign'], kind=o['kind'], section=o['section'], order=idx,
             greek=greek, number=num, pick=d in PICKS and not (d == 'Gamma-4'),
             insignia=insignia, plate=plate_for(insignia) if has_insignia else 'dark', hasInsignia=has_insignia, credit=cid,
+            insigniaStatus='sourced' if has_insignia else 'withheld' if withheld else 'none', coverage='dossier',
             mission=mission or None, missionSource=MTF_DIR, purpose=pick_purpose(sentences),
             specialty=specialty, roles=roles, gearQuotes=gear, utilizing=links.get('Utilizing Objects', []),
             deployments=links.get('Known Deployments', []), assisting=links.get('Assisting in Containment of Objects', []),
             reports=links.get('Action Reports', [])))
     return out, gaps
+
+
+# ------------------------------------------------- comprehensive list (sparse)
+LIST_PREFIX = re.compile(r'^([A-Z]{2,5})(?:[-\s]+)(.+)$')
+ALIAS_PAT = re.compile(r',|\s/\s|\baka\b|\balso known as\b|\bformerly\b', re.I)
+
+
+def designation_key(designation):
+    """Number part only, folded: 'MTF-Alpha-9', 'CTF Alpha-9' and 'Alpha-9' share 'alpha9'."""
+    d = LIST_PREFIX.match(designation.strip())
+    core = d.group(2) if d else designation
+    core = unicodedata.normalize('NFD', core)
+    core = ''.join(ch for ch in core if not unicodedata.combining(ch))
+    core = re.sub(r'-0+(\d)', r'-\1', core)
+    return re.sub(r'[^a-z0-9]+', '', core.lower())
+
+
+def build_list_mtf(credits, rich):
+    """Every task-force row of the Comprehensive List that is not one of the 108 directory units.
+
+    Only the list entry itself is used: designation, codename, the pages it links,
+    its one-line scope, and the list's verified marker. Linked pages are not read.
+    """
+    rows = json.loads((RES / 'mtflist/complete_rows.json').read_text())
+    sup = json.loads((RES / 'mtflist/insignia_match.json').read_text())
+    files = json.loads((RES / 'mtflist/insignia_files.json').read_text())
+    excluded = {'Vehicles': 0, 'Joke': 0}
+    rich_by_anchor = {}
+    for t in rich:
+        rich_by_anchor[slug(t['designation'])] = rich_by_anchor.get(slug(t['designation']), []) + [t]
+    seen = {t['id']: 1 for t in rich}
+    out, main_hits = [], 0
+
+    def norm(x):
+        return re.sub(r'[^a-z0-9]+', '', re.sub(r'\bthe\b', '', html.unescape(x).lower().replace("'s", 's')))
+
+    for idx, r in enumerate(rows):
+        if r['group'] in excluded:
+            excluded[r['group']] += 1
+            continue
+        if r['main']:
+            anchor = next((l['url'].split('#', 1)[1] for l in r['pages'] if '#' in l['url']), '')
+            cands = [t for t in rich if 'listScope' not in t and (slug(t['designation']) == anchor or t['id'] == anchor)]
+            cands = cands or [t for t in rich if 'listScope' not in t and norm(t['callsign']) == norm(r['codename'])]
+            assert cands, ('main row not matched', r)
+            t = max(cands, key=lambda t: difflib.SequenceMatcher(None, norm(t['callsign']), norm(r['codename'])).ratio())
+            t['listVerified'] = r['verified']
+            t['listScope'] = r['scope']
+            t['listGroup'] = r['group']
+            main_hits += 1
+            continue
+        m = LIST_PREFIX.match(r['designation'])
+        kind, des = (m.group(1), m.group(2)) if m else ('', r['designation'])
+        code = r['codename'].strip()
+        base = slug(f'{kind} {des} {code}') or slug(f'{kind} {des}') or f'row-{idx}'
+        sid, k = 'tf-' + base, 2
+        while sid in seen:
+            sid, k = f'tf-{base}-{k}', k + 1
+        seen[sid] = 1
+        scope = clean_text(r['scope'])
+        undocumented = not scope or scope.lower().startswith('no description given')
+        spec = re.search(r'speciali[sz]\w*\s+in\s+(.+?)(?:\.\s|\.$|$)', scope, re.I)
+        roles = [x for x, pat in ROLE_RULES if re.search(pat, scope + ' ' + code, re.I)] or (['Undocumented'] if undocumented else ['General containment'])
+        greek = r['group'] if r['group'] in GREEK else 'Other'
+        # insignia: only a supplement image with a license-box entry on the Comprehensive List
+        key = norm(LIST_PREFIX.sub(r'\2', r['designation'].strip())) + '|' + norm(code)
+        sm = sup.get(key)
+        status, insignia, cid = 'none', 'assets/sourced/foundation-emblem.webp', 'foundation-emblem'
+        if sm:
+            best = sm['best']
+            f = files.get(best['img']) if best else None
+            if best and f and 'size' in f:
+                rel = f'assets/sourced/mtf-list/{sid}.webp'
+                to_webp(RES / f['file'], ROOT / rel, 400)
+                e = best['license']
+                cid = f'mtf-{sid}'
+                credits[cid] = wiki_credit(e, MTF_COMPLETE, best['img'], title=e.get('Name') or e.get('Filename'),
+                                           note='License-box entry on A Comprehensive List of Mobile Task Forces; image from its logo supplement.')
+                credits[cid]['subject'] = f'{kind} {des} "{code}"'.strip()
+                status, insignia = 'sourced', rel
+            else:
+                status = 'withheld'
+        out.append(dict(
+            id=sid, coverage='list', designation=des, callsign=code, kind=kind,
+            listedAs=r['designation'], section='list', order=10000 + idx, greek=greek, listGroup=r['group'],
+            number=''.join(re.findall(r'-(.+)$', des)), pick=False, verified=r['verified'],
+            insignia=insignia, plate=plate_for(insignia) if status == 'sourced' else 'dark',
+            hasInsignia=status == 'sourced', insigniaStatus=status, credit=cid,
+            scope=None if undocumented else scope, specialty=spec.group(1).strip().rstrip('.') if spec else None,
+            roles=roles, pages=[dict(href=l['url'], label=l['label']) for l in r['pages']],
+            pagesText=None if r['pages'] else (r['pagesText'] or None),
+            aliasNote=bool(ALIAS_PAT.search(code)), source=MTF_COMPLETE))
+    assert main_hits == len(rich), (main_hits, len(rich))
+    # designations reused by more than one entry (directory + list)
+    allt = rich + out
+    groups = {}
+    for t in allt:
+        groups.setdefault(designation_key(t['designation']), []).append(t)
+    shared = 0
+    for t in allt:
+        others = [o for o in groups[designation_key(t['designation'])] if o is not t]
+        t['sharedDesignation'] = [dict(id=o['id'], label=f'{o["kind"]} {o["designation"]}'.strip() + (f' “{o["callsign"]}”' if o['callsign'] else '')) for o in others[:12]]
+        t['sharedCount'] = len(others)
+        shared += bool(others)
+    for t in rich:
+        t.setdefault('listVerified', None)
+    stats = dict(listRows=len(rows), excluded=excluded, directory=len(rich), listOnly=len(out), total=len(allt),
+                 withScope=sum(1 for t in out if t['scope']), undocumented=sum(1 for t in out if not t['scope']),
+                 verified=sum(1 for t in out if t['verified']),
+                 insignia=dict(sourced=sum(1 for t in out if t['insigniaStatus'] == 'sourced'),
+                               withheld=sum(1 for t in out if t['insigniaStatus'] == 'withheld'),
+                               none=sum(1 for t in out if t['insigniaStatus'] == 'none')),
+                 sharedDesignationEntries=shared, designationGroupsShared=sum(1 for g in groups.values() if len(g) > 1),
+                 aliasEntries=sum(1 for t in out if t['aliasNote']))
+    return out, stats
 
 
 # ----------------------------------------------------------------- credits
@@ -368,9 +517,12 @@ BASIS_LABELS = {
 }
 
 
-def render_credits(media, groups, mtf, credits, anomalies):
+def render_credits(media, groups, mtf, credits, anomalies, list_stats):
     e = html.escape
     def row(cid, label, anchor):
+        if cid is None:
+            return (f'<tr id="{e(anchor)}"><th scope="row">{e(label)}</th><td colspan="4">Logo withheld — not published.</td>'
+                    f'<td><span class="basis basis-page-license">Withheld</span> No license entry was found for the directory logo.</td></tr>')
         c = credits[cid]
         basis = BASIS_LABELS[c['basis']]
         comp = ''.join(f'<li>{e(x["name"] or "")} — {e(x["author"] or "")} ({e(x["license"] or "")})</li>' for x in c.get('components', []))
@@ -382,7 +534,11 @@ def render_credits(media, groups, mtf, credits, anomalies):
     head = '<thead><tr><th scope="col">Entry</th><th scope="col">Image</th><th scope="col">Author / credit</th><th scope="col">License</th><th scope="col">Links</th><th scope="col">Basis &amp; notes</th></tr></thead>'
     a_rows = ''.join(row(media[x['id']]['credit'], f'{x["itemNumber"]} · {x["name"]}', f'credit-scp-{x["id"]}') for x in anomalies)
     g_rows = ''.join(row(g['credit'], g['name'], f'credit-goi-{g["id"]}') for g in groups)
-    m_rows = ''.join(row(t['credit'], f'{t["kind"]} {t["designation"]} “{t["callsign"]}”' + ('' if t['hasInsignia'] else ' (no insignia — shared emblem)'), f'credit-mtf-{t["id"]}') for t in mtf)
+    def mlabel(t):
+        tail = '' if t['hasInsignia'] else ' (insignia withheld — shared emblem)' if t['insigniaStatus'] == 'withheld' else ' (no insignia — shared emblem)'
+        return f'{t["kind"]} {t["designation"]}'.strip() + (f' “{t["callsign"]}”' if t['callsign'] else '') + tail
+    m_rows = row('foundation-emblem', 'Shared Foundation emblem (placeholder)', 'credit-foundation-emblem')
+    m_rows += ''.join(row(t['credit'], mlabel(t), f'credit-mtf-{t["id"]}') for t in mtf if t['coverage'] == 'dossier' or t['hasInsignia'])
     counts = {b: sum(1 for c in credits.values() if c['basis'] == b) for b in BASIS_LABELS}
     src_rows = ''.join(f'<li><a href="{e(x["source"])}" rel="noopener">{e(x["itemNumber"])} — {e(x["name"])}</a></li>' for x in anomalies)
     tpl = (ROOT / 'tools/credits.template.html').read_text()
@@ -390,7 +546,10 @@ def render_credits(media, groups, mtf, credits, anomalies):
             .replace('{{SOURCE_LIST}}', src_rows).replace('{{N_BOX}}', str(counts['license-box'])).replace('{{N_COMMONS}}', str(counts['commons']))
             .replace('{{N_SOURCE}}', str(counts['source-license'])).replace('{{N_ARTIST}}', str(counts['artist-page']))
             .replace('{{N_PAGE}}', str(counts['page-license'])).replace('{{N_TOTAL}}', str(len(credits)))
-            .replace('{{N_GOI}}', str(len(groups))).replace('{{N_MTF}}', str(len(mtf))))
+            .replace('{{N_GOI}}', str(len(groups))).replace('{{N_MTF}}', str(len(mtf)))
+            .replace('{{N_MTF_DIR}}', str(list_stats['directory'])).replace('{{N_MTF_LIST}}', str(list_stats['listOnly']))
+            .replace('{{N_MTF_LIST_INSIGNIA}}', str(list_stats['insignia']['sourced'])).replace('{{N_MTF_LIST_WITHHELD}}', str(list_stats['insignia']['withheld']))
+            .replace('{{N_MTF_LIST_NONE}}', str(list_stats['insignia']['none'])))
 
 
 def main():
@@ -399,14 +558,19 @@ def main():
     media = build_anomalies(credits)
     groups, goi_gaps = build_groups(credits, meta)
     mtf, mtf_gaps = build_mtf(credits, meta)
+    mtf_list, list_stats = build_list_mtf(credits, mtf)
     anomalies = sorted(json.loads((ROOT / 'data.json').read_text()), key=lambda x: int(x['id']))
-    coll = dict(generated='tools/build_collections.py', sources=dict(groups=GOI_DIR, taskForces=MTF_DIR,
-                taskForcesNote='The directory lists the most notable task forces; a longer list exists at ' + WIKI + '/task-forces-complete-list. This archive covers every entry on the main directory page only.'),
-                anomalyMedia=media, groups=groups, taskForces=mtf, credits=credits,
+    coll = dict(generated='tools/build_collections.py', sources=dict(groups=GOI_DIR, taskForces=MTF_DIR, taskForcesComplete=MTF_COMPLETE,
+                taskForcesNote=('Full dossiers for the 108 units on the Mobile Task Forces directory, plus every other task-force row of A Comprehensive List '
+                                'of Mobile Task Forces as a sparse entry (designation, codename, linked pages, one-line scope). Vehicles and joke task forces '
+                                'on that list are excluded. The list calls itself a writers\' tool, not a canonical record.')),
+                taskForceStats=list_stats,
+                anomalyMedia=media, groups=groups, taskForces=mtf + mtf_list, credits=credits,
                 gaps=dict(groupLogoCredit=goi_gaps, taskForces=mtf_gaps))
     (ROOT / 'collections.json').write_text(json.dumps(coll, ensure_ascii=False, indent=1) + '\n')
-    (ROOT / 'credits.html').write_text(render_credits(media, groups, mtf, credits, anomalies))
-    print(f'anomalies={len(media)} groups={len(groups)} taskForces={len(mtf)} credits={len(credits)} goiGaps={goi_gaps} mtfGaps={len(mtf_gaps)}')
+    (ROOT / 'credits.html').write_text(render_credits(media, groups, mtf + mtf_list, credits, anomalies, list_stats))
+    print(f'anomalies={len(media)} groups={len(groups)} taskForces={len(mtf)}+{len(mtf_list)} credits={len(credits)} goiGaps={goi_gaps} mtfGaps={len(mtf_gaps)}')
+    print(json.dumps(list_stats))
 
 
 if __name__ == '__main__':

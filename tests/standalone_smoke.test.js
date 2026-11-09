@@ -33,7 +33,7 @@ test('offline single file boots with embedded data and data: URLs only', async (
     counts[s] = d.querySelectorAll('#grid .card').length;
     assert.ok([...d.querySelectorAll('#grid img')].every(i => i.getAttribute('src').startsWith('data:image/')), `${s} images are embedded`);
   }
-  assert.deepEqual(counts, { anomalies: 36, groups: 56, 'task-forces': 108 });
+  assert.deepEqual(counts, { anomalies: 36, groups: 56, 'task-forces': 60 }, 'task forces render the first page of 60 dossiers');
   click(d.querySelector('.section-nav [data-section="anomalies"]')); await new Promise(r => setTimeout(r, 30));
   click(d.querySelector('#grid .card[data-id="173"]')); await new Promise(r => setTimeout(r, 30));
   const dlg = d.querySelector('dialog');

@@ -33,7 +33,7 @@
     <nav class="section-nav" aria-label="Archive sections">
       <a class="section-link" href="#anomalies" data-section="anomalies">Anomalies <span class="nav-count" data-count="anomalies">36</span></a>
       <a class="section-link" href="#groups" data-section="groups">Groups <span class="nav-long">of Interest</span> <span class="nav-count" data-count="groups">56</span></a>
-      <a class="section-link" href="#task-forces" data-section="task-forces"><span class="nav-long">Mobile </span>Task Forces <span class="nav-count" data-count="task-forces">108</span></a>
+      <a class="section-link" href="#task-forces" data-section="task-forces"><span class="nav-long">Mobile </span>Task Forces <span class="nav-count" data-count="task-forces">1804</span></a>
     </nav>
     <button id="mute" class="mute-button" type="button" aria-pressed="false"><svg class="mute-icon" viewBox="0 0 20 16" width="18" height="14" aria-hidden="true" focusable="false"><path d="M1 5h4l5-4v14l-5-4H1z" fill="currentColor"/><path class="wave" d="M13 4.5a5 5 0 0 1 0 7M15.5 2a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="cross" d="M13 5l6 6M19 5l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="mute-label">Audio on</span></button>
   </header>
@@ -48,7 +48,7 @@
         <ul class="hero-routes">
           <li><a class="section-link route-tile" href="#anomalies" data-section="anomalies"><span class="route-k">Sector A</span><strong>Anomalies</strong><span class="route-n"><b data-count="anomalies">36</b> dossiers</span></a></li>
           <li><a class="section-link route-tile" href="#groups" data-section="groups"><span class="route-k">Sector G</span><strong>Groups of Interest</strong><span class="route-n"><b data-count="groups">56</b> organisations</span></a></li>
-          <li><a class="section-link route-tile" href="#task-forces" data-section="task-forces"><span class="route-k">Sector M</span><strong>Mobile Task Forces</strong><span class="route-n"><b data-count="task-forces">108</b> units</span></a></li>
+          <li><a class="section-link route-tile" href="#task-forces" data-section="task-forces"><span class="route-k">Sector M</span><strong>Mobile Task Forces</strong><span class="route-n"><b data-count="task-forces-dossiers">108</b> dossiers · <b data-count="task-forces">1804</b> listed</span></a></li>
         </ul>
       </div>
       <div class="hazard hazard-bottom" aria-hidden="true"></div>
@@ -59,18 +59,19 @@
         <p class="eyebrow" id="collection-eyebrow">Containment records</p>
         <h2 id="collection-title" tabindex="-1">Anomalies</h2>
         <p class="collection-lede" id="collection-lede"></p>
-        <p class="mtf-note" id="mtf-note" hidden>Coverage: every entry on the main <a href="https://scp-wiki.wikidot.com/task-forces" target="_blank" rel="noopener">Mobile Task Forces directory</a> (89 listed units, 17 additional, plus one DTF and one STF). The wiki keeps a longer <a href="https://scp-wiki.wikidot.com/task-forces-complete-list" target="_blank" rel="noopener">complete list</a> that is not covered here.</p>
+        <p class="mtf-note" id="mtf-note" hidden>Coverage: <strong>108 full dossiers</strong> for every unit on the <a href="https://scp-wiki.wikidot.com/task-forces" target="_blank" rel="noopener">Mobile Task Forces directory</a>, plus <strong>1,696 shorter list entries</strong> for every other task force on <a href="https://scp-wiki.wikidot.com/task-forces-complete-list" target="_blank" rel="noopener">A Comprehensive List of Mobile Task Forces</a> (vehicles and joke task forces excluded). List entries use only that list. The list calls itself a writers’ tool, not a canonical record, so numbers repeat across stories. Use the Coverage menu to switch.</p>
       </header>
       <div class="toolbar">
         <div class="search-field"><label id="search-label" for="search">Search</label><input id="search" type="search" autocomplete="off" spellcheck="false"></div>
         <div id="mtf-selects" class="selects" hidden>
           <label>Designation letter<select id="greek"></select></label>
-          <label>Directory list<select id="directory"></select></label>
+          <label>Coverage<select id="directory"></select></label>
         </div>
         <div id="chips" class="chips" role="group"></div>
         <p id="result-count" class="result-count" role="status" aria-live="polite"></p>
       </div>
       <ul id="grid" class="grid" aria-label="Results"></ul>
+      <button id="more" type="button" class="outline-button more-button" hidden>Show more</button>
       <div id="empty" class="empty-state" hidden><p class="eyebrow">Query returned zero records</p><h3>No matching file.</h3><p>Try a different number, name or filter.</p><button id="reset" type="button" class="outline-button">Reset search and filters</button></div>
     </section>
   </main>
