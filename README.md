@@ -1,34 +1,53 @@
-# RAISA — Restricted Records Archive
+# RAISA — Foundation Records Archive
 
-Unofficial SCP Foundation fan experience. Vanilla HTML / CSS / JavaScript. No build step, dependencies, accounts, trackers, external fonts, paid APIs, or backend. 36 dossiers and 72 locally authored SVG scenes, plus 36 accessible still variants.
+An unofficial SCP Foundation fan archive, built with plain HTML, CSS and JavaScript. It has no build step at runtime, no dependencies, accounts, trackers, external fonts or backend, and it hotlinks nothing.
+
+It has three sections:
+
+- **Anomalies (36).** Each containment dossier's card shows a credited community image of that SCP, downloaded and served locally. Inside a dossier, a small **Original artwork** tab holds the archive's own generated plates and the six-second overview film.
+- **Groups of Interest (56).** Every entry in the official [Groups of Interest directory](https://scp-wiki.wikidot.com/groups-of-interest) (51 main + 5 additional). Each dossier quotes the official brief and adds origins and purpose, specialties, and gear and weapons. When the brief documents no gear, the dossier says "Not specified". Contested canon gets a continuity note.
+- **Mobile Task Forces (108).** Every entry on the main [Mobile Task Forces directory](https://scp-wiki.wikidot.com/task-forces): 89 listed units, 17 "Additional MTFs", 1 DTF and 1 STF. Each shows its designation, callsign and insignia, for example Alpha-1 "Red Right Hand". The wiki's longer [complete list](https://scp-wiki.wikidot.com/task-forces-complete-list) is **not** covered. Five units have no insignia on the directory page; they show the shared Foundation emblem with a text overlay.
 
 ## Preview
 
 ```sh
 cd /workspace/scp-archive
-python3 -m http.server 8771 --bind 0.0.0.0
+python3 -m http.server 8781 --bind 127.0.0.1
 ```
 
-Open http://localhost:8771. Do not open index.html directly: JSON uses fetch.
-All application paths are relative, including `.nojekyll` for an eventual GitHub Pages deployment. Nothing has been published and no repository has been created.
+Open http://127.0.0.1:8781. Opening `index.html` directly will not work, because the JSON is loaded with `fetch`.
 
-## Contents
+## Files
 
-- `data.json`: original dossier summaries, two original fictional incident vignettes per entry, classes, sources, and visual paths.
-- `assets/videos/`: one short silent overview film per entry (`overview` field in `data.json`), played in-file with a native `<video>` player. Original AI-generated fan reconstructions animated from the archive's own illustrations; not downloaded from the wiki, YouTube, or any third-party channel.
-- `assets/`: one original specimen illustration and one original animated capability panel per entry. Not photographs, official assets, or downloaded wiki art.
-- `build_assets.py`: reproducible illustration and dataset generator; automatically runs `enhance_plates.py` to add the 36 individual behavioral diagrams. Python standard library only.
-- `app.js`: records search, class filters, full-page dossier viewer, keyboard navigation, and original Web Audio synthesis.
-- `style.css`: responsive archive and document styles. Respects reduced-motion preferences (using an explicit static source for embedded SVG plates).
-- `credits.html`: source record links and licensing details.
-- `verify.py`: Playwright end-to-end smoke checks. Requires installed Python Playwright and `/usr/bin/google-chrome`. Run while server is running.
+| Path | Role |
+|---|---|
+| `index.html` | Splash, top bar with section nav and mute, tiled hero with route tiles, one collection panel, and a `<dialog>` for dossiers. |
+| `archive-core.js` | Pure logic with no DOM access: normalises data into card entries, search (case-, accent- and punctuation-insensitive), filters, tag counts, and the hash grammar. Used by the browser and by Node tests. |
+| `app.js` | UI rendering, the dossier lifecycle (`openDossier` / `closeDossier`), the media tab and video lifecycle, routing, and `FacilityAudio` (unchanged behaviour, same `raisa-muted` key). |
+| `style.css` | Graphite steel, concrete and white-tile theme. Mobile first, with reduced-motion and forced-colors support. |
+| `data.json` | The 36 original dossiers. **Byte-identical to the pre-overhaul commit.** |
+| `collections.json` | Generated: per-anomaly sourced image and credit, 56 groups, 108 task forces, 196 credit records, and known gaps. |
+| `credits.html` | Generated: the full image register (author, source page, actual image URL, license, basis, notes), plus text license and design references. |
+| `assets/sourced/` | Resized WebP copies of the sourced images (`scp/`, `goi/`, `mtf/`, `foundation-emblem.webp`). |
+| `assets/*.svg`, `assets/videos/*.mp4` | The archive's original generated plates and films. They appear only under "Original artwork". |
+| `tools/build_collections.py` | Rebuilds `collections.json`, `credits.html` and `assets/sourced/` from the private research cache (`SCP_RESEARCH`, default `/workspace/scp-research`). |
+| `tools/scp_media.py`, `tools/goi_content.py`, `tools/mtf_content.py` | Hand-curated image picks and credits, group dossier fields, and task-force specialty lines. |
+| `tests/` | `core.test.js` (unit), `dom_smoke.test.js` (jsdom, not a browser), and `static_check.py` (integrity). |
+| `verify.py` | Real-browser Playwright checks and screenshots. Not yet run against the overhaul. |
 
-Audio starts only after Enter Facility. The persistent mute setting is stored locally on the device; no information is transmitted. Synthesis is deliberately quiet: low industrial hum, short paper/static rustles and a low stamp impact. Background tabs suspend audio. Escape returns from a file.
+## Routes
 
-## Copyright / attribution
+`#anomalies`, `#groups`, `#task-forces`, `#scp-173`, `#goi-serpents-hand`, `#mtf-alpha-1`. The old links `#file-173` and `#records` still work.
 
-This is **unofficial fan work**, not the SCP Wiki or a real Foundation service. SCP concepts are derived from [SCP Foundation](https://scp-wiki.wikidot.com/) and the contributors to the individual articles linked in every dossier and `credits.html`. See each source article's attribution / license history for its contributors. Adapted material and the fan-created writing, art, and implementation in this folder are shared under [Creative Commons Attribution-ShareAlike 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+## Tests
 
-No article passages or canonical logs have been transcribed. Summaries are original compressed interpretations. Incident vignettes are newly invented fan scenes, not a canonical timeline. Blacked-out dates are dramatic framing, not historical assertions. Every illustration is original procedural SVG art; no SCP images or official logos were downloaded. The R seal is an original RAISA-inspired monogram, not the Foundation logo.
+```sh
+node --check archive-core.js && node --check app.js
+node --test tests/core.test.js
+NODE_PATH=/path/to/node_modules/with/jsdom node --test tests/dom_smoke.test.js
+python3 tests/static_check.py
+```
 
-There are no SCP-001 proposals, logins, data collection, jump scares, or gore imagery. The SCP-2521 dossier uses pictographic / redacted body records.
+## Copyright and attribution
+
+This is **unofficial fan work**. It is not the SCP Wiki or affiliated with it. SCP concepts, group briefs and task-force mission statements come from the [SCP Wiki](https://scp-wiki.wikidot.com/) community under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), and quoted text is credited in each dossier. Every sourced image is credited in `credits.html` with author, source page, image URL, license and the basis for that license. Images whose license rests only on the hosting page, with no per-file entry, are flagged. The SCP-173 card does not use the Izumi Kato sculpture photograph. The archive's own writing, generated art, films, sound synthesis and code are shared under CC BY-SA 3.0.

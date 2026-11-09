@@ -2,37 +2,89 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#111713"><meta name="description" content="An unofficial SCP Foundation fan archive. Thirty-six original illustrated dossiers, containment records, and atmospheric sound.">
-<title>RAISA — Restricted Records Archive</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
+<meta name="theme-color" content="#16191c">
+<meta name="description" content="RAISA: an unofficial SCP Foundation fan archive. 36 anomaly dossiers, every Group of Interest and every Mobile Task Force on the official directories, with credited images.">
+<title>RAISA · Foundation Records Archive</title>
+<link rel="stylesheet" href="style.css">
+<script src="archive-core.js" defer></script>
+<script src="app.js" defer></script>
 </head>
 <body>
-<div class="global-noise" aria-hidden="true"></div>
 <section id="splash" class="splash" aria-labelledby="splash-title">
-  <div class="splash-top"><span class="tiny square-mark">FOUNDATION RECORDS</span><span class="tiny">TERMINAL 04 / OFFLINE MIRROR</span></div>
-  <div class="access-document">
-    <div class="seal" aria-hidden="true"><span>R</span><i></i></div>
-    <p class="eyebrow">RECORDS AND INFORMATION SECURITY ADMINISTRATION</p>
-    <h1 id="splash-title">Some things<br>should remain<br><em>contained.</em></h1>
-    <p class="splash-copy">You are accessing a restricted records terminal.<br>Observe. Document. Do not interfere.</p>
-    <div class="access-line"><span class="status-dot"></span> ARCHIVE MIRROR ONLINE <span>/ 36 FILES</span></div>
-    <button id="enter" class="enter-button" disabled>INITIALIZING TERMINAL…</button>
-    <p class="sound-note">Low-level ambient audio on entry. Mute is always available.</p>
+  <div class="splash-door" aria-hidden="true"><span></span><span></span></div>
+  <div class="splash-panel">
+    <div class="hazard" aria-hidden="true"></div>
+    <img class="splash-emblem" src="assets/sourced/foundation-emblem.webp" alt="" width="120" height="120">
+    <p class="eyebrow">Records and Information Security Administration</p>
+    <h1 id="splash-title">Secure.<br>Contain.<br><em>Protect.</em></h1>
+    <p class="splash-copy">Restricted records terminal, Site-19, sub-level 4. Everything past this door is read-only.</p>
+    <ul class="splash-stats" aria-label="Archive contents"><li><strong>36</strong> anomalies</li><li><strong>56</strong> groups of interest</li><li><strong>108</strong> task forces</li></ul>
+    <button id="enter" class="enter-button" disabled>Initializing terminal…</button>
+    <p class="sound-note">Quiet ambient audio starts on entry. Mute is always available, top right.</p>
     <p id="load-error" role="alert" hidden></p>
   </div>
-  <footer class="splash-footer"><span>SECURE. CONTAIN. PROTECT.</span><p>Unofficial fan experience. Inspired by the <a href="https://scp-wiki.wikidot.com/" target="_blank" rel="noopener">SCP Foundation</a>.<br>Adapted concepts and this fan work: <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>. No affiliation. No data collected.</p></footer>
+  <footer class="splash-footer"><p>Unofficial fan archive inspired by the <a href="https://scp-wiki.wikidot.com/" target="_blank" rel="noopener">SCP Foundation</a>. Content is <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener license">CC BY-SA 3.0</a>. <a href="credits.html">Credits</a>. No affiliation, no tracking.</p></footer>
 </section>
+
 <div id="facility" hidden>
-<header class="topbar"><a class="brand" href="#records" aria-label="Return to archive"><span class="brand-emblem" aria-hidden="true">R</span><span>RAISA<span class="brand-sub">FOUNDATION ARCHIVES</span></span></a><div class="terminal-status"><i class="status-dot"></i> SITE-19 <span>/ RECORDS TERMINAL 04</span></div><button id="mute" class="mute-button" aria-pressed="false"><span aria-hidden="true">◖)))</span> AUDIO ON</button></header>
-<main id="records">
-  <section class="archive-heading"><div><p class="eyebrow">INTERNAL NETWORK / ARCHIVE DIRECTORY</p><h1 id="archive-title" tabindex="-1">The anomalous.<br><span>On record.</span></h1><p class="intro">Containment records, incident reports, and classified observations.<br class="desktop-break"> What we know. What we keep locked away.</p></div><aside class="clearance-stamp"><span>ACCESS GRANTED</span><strong>LEVEL 04</strong><small>READ-ONLY / MIRROR</small></aside></section>
-  <div class="warning-line"><span>NOTICE 04</span><p>Object class indicates containment difficulty, not danger. All visual plates are nonhazardous reconstructions.</p></div>
-  <section class="directory" aria-label="Containment records">
-    <aside class="directory-sidebar"><div class="sidebar-title"><span class="tiny">RECORD INDEX</span><span class="tiny">01—36</span></div><label class="search-label" for="search">LOCATE A FILE</label><div class="search-wrap"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Number or designation…" autocomplete="off"></div><div class="filter-label">CONTAINMENT CLASS</div><div id="filters" class="filters" role="group" aria-label="Filter by object class"><button data-class="all" class="filter active" aria-pressed="true"><span class="all-glyph" aria-hidden="true">▦</span> All records <span class="filter-count">36</span></button></div><div class="sidebar-note"><span class="tiny">HANDLING INSTRUCTIONS</span><p>Select a file to retrieve its containment summary and incident history.</p><div class="redacted" aria-hidden="true"></div><p class="tiny muted">LOCAL SESSION · NO TRANSMISSION</p></div></aside>
-    <div class="directory-content"><div class="results-bar"><span id="result-count" role="status" aria-live="polite">36 RECORDS AVAILABLE</span><span class="results-order">ITEM NUMBER ↑</span></div><div id="grid" class="grid"></div><div id="empty" class="empty-state" hidden><span class="tiny">QUERY RETURNED ZERO RECORDS</span><h2>No matching file.</h2><p>Try an item number, designation, or another containment class.</p><button id="reset" class="outline-button">RESET QUERY</button></div><div class="end-records"><span>END OF ACCESSIBLE INDEX</span><span>— RAISA / 04 —</span></div></div>
-  </section>
-</main>
-<section id="file-view" class="file-view" hidden aria-labelledby="file-title"></section>
-<footer class="archive-footer"><div><strong>SECURE. CONTAIN. PROTECT.</strong><p>RAISA / AN UNOFFICIAL SCP FAN ARCHIVE</p></div><p>Inspired by the <a href="https://scp-wiki.wikidot.com/" target="_blank" rel="noopener">SCP Foundation</a> and its contributors. <a href="credits.html">Attribution & production notes</a>.<br>Original summaries, fictional incident vignettes, and original illustrations. Licensed <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Not affiliated with the official wiki.</p></footer>
+  <a class="skip-link" href="#collection-title">Skip to records</a>
+  <header class="topbar">
+    <a class="brand" href="#anomalies" data-section="anomalies" aria-label="RAISA archive home"><img src="assets/sourced/foundation-emblem.webp" alt="" width="34" height="34"><span><strong>RAISA</strong><small>Foundation Records</small></span></a>
+    <nav class="section-nav" aria-label="Archive sections">
+      <a class="section-link" href="#anomalies" data-section="anomalies">Anomalies <span class="nav-count" data-count="anomalies">36</span></a>
+      <a class="section-link" href="#groups" data-section="groups">Groups <span class="nav-long">of Interest</span> <span class="nav-count" data-count="groups">56</span></a>
+      <a class="section-link" href="#task-forces" data-section="task-forces"><span class="nav-long">Mobile </span>Task Forces <span class="nav-count" data-count="task-forces">108</span></a>
+    </nav>
+    <button id="mute" class="mute-button" type="button" aria-pressed="false"><svg class="mute-icon" viewBox="0 0 20 16" width="18" height="14" aria-hidden="true" focusable="false"><path d="M1 5h4l5-4v14l-5-4H1z" fill="currentColor"/><path class="wave" d="M13 4.5a5 5 0 0 1 0 7M15.5 2a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="cross" d="M13 5l6 6M19 5l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="mute-label">Audio on</span></button>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-wall" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="eyebrow">Internal network · Archive directory · Level 4</p>
+        <h1 id="hero-title" tabindex="-1">The anomalous, <span>on record.</span></h1>
+        <p class="hero-lede">Containment files, intelligence briefs on every Group of Interest, and the Foundation's Mobile Task Force directory, all in one place.</p>
+        <ul class="hero-routes">
+          <li><a class="section-link route-tile" href="#anomalies" data-section="anomalies"><span class="route-k">Sector A</span><strong>Anomalies</strong><span class="route-n"><b data-count="anomalies">36</b> dossiers</span></a></li>
+          <li><a class="section-link route-tile" href="#groups" data-section="groups"><span class="route-k">Sector G</span><strong>Groups of Interest</strong><span class="route-n"><b data-count="groups">56</b> organisations</span></a></li>
+          <li><a class="section-link route-tile" href="#task-forces" data-section="task-forces"><span class="route-k">Sector M</span><strong>Mobile Task Forces</strong><span class="route-n"><b data-count="task-forces">108</b> units</span></a></li>
+        </ul>
+      </div>
+      <div class="hazard hazard-bottom" aria-hidden="true"></div>
+    </section>
+
+    <section id="collection" class="collection" aria-labelledby="collection-title" data-section="anomalies">
+      <header class="collection-head">
+        <p class="eyebrow" id="collection-eyebrow">Containment records</p>
+        <h2 id="collection-title" tabindex="-1">Anomalies</h2>
+        <p class="collection-lede" id="collection-lede"></p>
+        <p class="mtf-note" id="mtf-note" hidden>Coverage: every entry on the main <a href="https://scp-wiki.wikidot.com/task-forces" target="_blank" rel="noopener">Mobile Task Forces directory</a> (89 listed units, 17 additional, plus one DTF and one STF). The wiki keeps a longer <a href="https://scp-wiki.wikidot.com/task-forces-complete-list" target="_blank" rel="noopener">complete list</a> that is not covered here.</p>
+      </header>
+      <div class="toolbar">
+        <div class="search-field"><label id="search-label" for="search">Search</label><input id="search" type="search" autocomplete="off" spellcheck="false"></div>
+        <div id="mtf-selects" class="selects" hidden>
+          <label>Designation letter<select id="greek"></select></label>
+          <label>Directory list<select id="directory"></select></label>
+        </div>
+        <div id="chips" class="chips" role="group"></div>
+        <p id="result-count" class="result-count" role="status" aria-live="polite"></p>
+      </div>
+      <ul id="grid" class="grid" aria-label="Results"></ul>
+      <div id="empty" class="empty-state" hidden><p class="eyebrow">Query returned zero records</p><h3>No matching file.</h3><p>Try a different number, name or filter.</p><button id="reset" type="button" class="outline-button">Reset search and filters</button></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="hazard" aria-hidden="true"></div>
+    <div class="footer-inner">
+      <div><strong>Secure. Contain. Protect.</strong><p class="mono tiny">RAISA · an unofficial SCP fan archive</p></div>
+      <p>Inspired by the <a href="https://scp-wiki.wikidot.com/" target="_blank" rel="noopener">SCP Foundation</a> and its contributors. Card images are credited community works, downloaded and served locally. See <a href="credits.html">credits &amp; image register</a>. Dossier summaries, incident vignettes and original artwork are fan-made. Shared under <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener license">CC BY-SA 3.0</a>. Not affiliated with the SCP Wiki.</p>
+    </div>
+  </footer>
 </div>
-<noscript><p class="noscript">This local archive requires JavaScript to load its records. No account or network service is needed.</p></noscript>
-</body></html>
+
+<dialog id="dossier" class="dossier-dialog" aria-labelledby="dossier-title"></dialog>
+<noscript><p class="noscript">This archive needs JavaScript to load its records. No account or network service is required.</p></noscript>
+</body>
+</html>
